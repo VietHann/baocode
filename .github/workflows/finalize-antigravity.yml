@@ -22,7 +22,6 @@ jobs:
         shell: python
         run: |
           from pathlib import Path
-
           replacements = {
             'lib/settings/pages/models_page.dart': [
               ("ProviderProtocol.gemini => 'Google Gemini'", "ProviderProtocol.gemini => 'Google Antigravity'"),
@@ -42,7 +41,6 @@ jobs:
               ("return _fail(response, 502, 'Antigravity returned an invalid reply');", "return await _fail(response, 502, 'Antigravity returned an invalid reply');"),
             ],
           }
-
           for path, pairs in replacements.items():
             p = Path(path)
             text = p.read_text(encoding='utf-8')
@@ -52,17 +50,9 @@ jobs:
 
           p = Path('lib/models/gemini/gemini_accounts_io.dart')
           text = p.read_text(encoding='utf-8')
-          text = text.replace(
-            "required ModelProviders Function() providers,\n    this.endpoints = const GeminiEndpoints(),\n    String Function(Uri url)? findProxy,\n    Future<bool> Function(String url)? openBrowser,",
-            "required ModelProviders Function() providers,\n    this.endpoints = const GeminiEndpoints(),\n    String Function(Uri url)? findProxy,\n    Future<bool> Function(String url)? openBrowser,",
-          )
-          # The project's lints prefer initializing formals, but these public
-          # argument names intentionally omit underscores. Silence that purely
-          # stylistic lint locally rather than changing the constructor API.
-          text = text.replace(
-            "class GeminiAccounts extends CodexService {\n  GeminiAccounts({",
-            "class GeminiAccounts extends CodexService {\n  // ignore: prefer_initializing_formals\n  GeminiAccounts({",
-          )
+          if not text.startswith('// ignore_for_file: prefer_initializing_formals'):
+            text = '// ignore_for_file: prefer_initializing_formals\n\n' + text
+          text = text.replace('  // ignore: prefer_initializing_formals\n  GeminiAccounts({', '  GeminiAccounts({')
           text = text.replace(
             "    if (provider == null) throw const CodexException('The provider was removed.');",
             "    if (provider == null) {\n      throw const CodexException('The provider was removed.');\n    }",
