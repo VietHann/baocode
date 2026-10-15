@@ -14,13 +14,8 @@ env:
   FLUTTER_VERSION: 3.47.5
 
 jobs:
-  remote:
-    name: Remote server
-    uses: ./.github/workflows/remote.yml
-
   windows:
     name: Build Windows installer
-    needs: remote
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,11 +28,6 @@ jobs:
 
       - name: Install Inno Setup
         run: choco install innosetup --no-progress -y
-
-      - uses: actions/download-artifact@v4
-        with:
-          name: remote
-          path: build/remote
 
       - name: Resolve official Antigravity OAuth client at build time
         shell: pwsh
@@ -78,7 +68,7 @@ jobs:
             --dart-define="BAOCODE_GOOGLE_OAUTH_CLIENT_SECRET=$env:BAOCODE_GOOGLE_OAUTH_CLIENT_SECRET"
 
       - name: Package Windows installer
-        run: dart run tool/build_windows.dart --skip-build --remote-built
+        run: dart run tool/build_windows.dart --skip-build --remote-release latest
 
       - name: Verify installer
         shell: pwsh
