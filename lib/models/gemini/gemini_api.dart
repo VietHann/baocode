@@ -1,9 +1,13 @@
 import '../upstream.dart';
 
-/// Google OAuth client id supplied by the BaoCode build.
-/// Example: --dart-define=BAOCODE_GOOGLE_OAUTH_CLIENT_ID=...
+/// Google Antigravity OAuth client configuration supplied by the BaoCode
+/// build. Keep credentials out of the repository; desktop OAuth clients can
+/// be injected with --dart-define when packaging the app.
 const geminiOAuthClientId = String.fromEnvironment(
   'BAOCODE_GOOGLE_OAUTH_CLIENT_ID',
+);
+const geminiOAuthClientSecret = String.fromEnvironment(
+  'BAOCODE_GOOGLE_OAUTH_CLIENT_SECRET',
 );
 
 const geminiOAuthScopes = [
@@ -12,46 +16,83 @@ const geminiOAuthScopes = [
   'https://www.googleapis.com/auth/userinfo.profile',
 ];
 
-const geminiCodeAssistUserAgent =
-    'GeminiCLI-BaoCode/1.0/gemini-2.5-pro (desktop; dart; baocode)';
+/// Match the Antigravity client surface used by cursor-byok's current
+/// built-in Antigravity provider.
+const antigravityUserAgent =
+    'antigravity/hub/2.12.2 (aidev_client; os_type=windows; arch=x64; cl=975423596)';
+
+const antigravityEndpoints = [
+  'https://daily-cloudcode-pa.googleapis.com',
+  'https://cloudcode-pa.googleapis.com',
+  'https://daily-cloudcode-pa.sandbox.googleapis.com',
+];
+
+const antigravityDefaultProject = 'bamboo-precept-lgxtn';
 
 class GeminiEndpoints {
   const GeminiEndpoints({
     this.authorizeBase = 'https://accounts.google.com/o/oauth2/v2/auth',
     this.tokenBase = 'https://oauth2.googleapis.com/token',
-    this.userInfoBase = 'https://www.googleapis.com/oauth2/v2/userinfo',
-    this.codeAssistBase = 'https://cloudcode-pa.googleapis.com/v1internal',
+    this.userInfoBase = 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json',
   });
 
   final String authorizeBase;
   final String tokenBase;
   final String userInfoBase;
-  final String codeAssistBase;
 
   Uri get authorize => Uri.parse(authorizeBase);
   Uri get token => Uri.parse(tokenBase);
   Uri get userInfo => Uri.parse(userInfoBase);
 
-  Uri method(String name, {Map<String, String>? query}) =>
-      Uri.parse('$codeAssistBase:$name').replace(queryParameters: query);
-
-  Uri operation(String name) => Uri.parse('$codeAssistBase/$name');
+  Uri method(
+    String base,
+    String name, {
+    Map<String, String>? query,
+  }) => Uri.parse('$base/v1internal:$name').replace(queryParameters: query);
 
   String redirectUri(int port) => 'http://127.0.0.1:$port/oauth2callback';
 }
 
-const geminiCodeAssistModels = <RemoteModel>[
-  RemoteModel('gemini-3.1-pro-preview', label: 'Gemini 3.1 Pro Preview', contextWindow: 1000000, efforts: [], images: true),
-  RemoteModel('gemini-3-pro-preview', label: 'Gemini 3 Pro Preview', contextWindow: 1000000, efforts: [], images: true),
-  RemoteModel('gemini-2.5-pro', label: 'Gemini 2.5 Pro', contextWindow: 1000000, efforts: [], images: true),
-  RemoteModel('gemini-3.5-flash', label: 'Gemini 3.5 Flash', contextWindow: 1000000, efforts: [], images: true),
-  RemoteModel('gemini-3-flash', label: 'Gemini 3 Flash', contextWindow: 1000000, efforts: [], images: true),
-  RemoteModel('gemini-3.1-flash-lite', label: 'Gemini 3.1 Flash Lite', contextWindow: 1000000, efforts: [], images: true),
-];
-
 Map<String, String> geminiHeaders(String accessToken, {bool events = false}) => {
   'authorization': 'Bearer $accessToken',
-  'user-agent': geminiCodeAssistUserAgent,
+  'user-agent': antigravityUserAgent,
   'content-type': 'application/json',
   'accept': events ? 'text/event-stream' : 'application/json',
 };
+
+/// Parse exactly the model catalog Google returns from Antigravity's
+/// fetchAvailableModels. No locally invented/static model catalog is merged in.
+List<RemoteModel> parseAntigravityModels(Object? json) {
+  if (json is! Map || json['models'] is! Map) return const [];
+  final raw = json['models'] as Map;
+  const deny = {'chat_20706', 'chat_23310'};
+  final models = <RemoteModel>[];
+  final seen = <String>{};
+
+  for (final entry in raw.entries) {
+    final id = '${entry.key}'.trim();
+    if (id.isEmpty || deny.contains(id) || !seen.add(id)) continue;
+    if (entry.value is! Map) continue;
+    final info = entry.value as Map;
+    final display = switch (info['displayName']) {
+      final String value when value.trim().isNotEmpty => value.trim(),
+      _ => null,
+    };
+    final thinking = info['supportsThinking'] == true;
+    final lower = id.toLowerCase();
+    final images = info['supportsImages'] == true ||
+        lower.contains('gemini') ||
+        lower.contains('claude');
+
+    models.add(
+      RemoteModel(
+        id,
+        label: display,
+        efforts: thinking ? const ['low', 'medium', 'high'] : const [],
+        images: images,
+      ),
+    );
+  }
+
+  return models;
+}
