@@ -75,6 +75,7 @@ abstract final class UpstreamUrls {
         ProviderProtocol.codex => [
           const CodexEndpoints().models(codexVersionOf(provider)),
         ],
+        ProviderProtocol.gemini => const [],
         ProviderProtocol.anthropic => switch (anthropicBase(provider.baseUrl)) {
           final base? => _anthropicModels(Uri.parse(base)),
           null => const [],
@@ -127,7 +128,9 @@ abstract final class UpstreamUrls {
           final base? => switch (provider.protocol) {
             ProviderProtocol.openaiChat => Uri.parse('$base/chat/completions'),
             ProviderProtocol.openaiResponses => Uri.parse('$base/responses'),
-            ProviderProtocol.anthropic || ProviderProtocol.codex => null,
+            ProviderProtocol.anthropic ||
+            ProviderProtocol.codex ||
+            ProviderProtocol.gemini => null,
           },
           null => null,
         };

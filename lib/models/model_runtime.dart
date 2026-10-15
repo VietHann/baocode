@@ -27,6 +27,9 @@ Future<Map<String, String>> providerLaunchEnvironment(
 /// The ChatGPT (Codex) providers' accounts: signing in, their quota.
 CodexService get codexService => platform.codexService;
 
+/// Google Gemini Code Assist accounts signed in with Google.
+CodexService get geminiService => platform.geminiService;
+
 /// Stops the local proxy, as the app quits.
 Future<void> stopModelProxy() => platform.stopModelProxy();
 

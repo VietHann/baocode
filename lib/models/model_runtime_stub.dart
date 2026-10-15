@@ -16,3 +16,4 @@ Future<Map<String, String>> providerLaunchEnvironment(
 Future<void> stopModelProxy() async {}
 
 final CodexService codexService = CodexUnavailable();
+final CodexService geminiService = CodexUnavailable();

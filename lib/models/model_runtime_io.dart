@@ -6,6 +6,7 @@ import '../network/network_proxy_io.dart';
 import '../workspace/editor_launcher.dart';
 import 'codex/codex_accounts_io.dart';
 import 'codex/codex_service.dart';
+import 'gemini/gemini_accounts_io.dart';
 import 'launch_environment.dart';
 import 'model_provider.dart';
 import 'model_providers.dart';
@@ -22,6 +23,15 @@ final CodexAccounts _codex = CodexAccounts(
 
 CodexService get codexService => _codex;
 
+/// The app's Google Gemini accounts.
+final GeminiAccounts _gemini = GeminiAccounts(
+  providers: () => ModelProviders.current,
+  findProxy: (url) => NetworkProxy.instance.findProxy(url),
+  openBrowser: openExternal,
+);
+
+CodexService get geminiService => _gemini;
+
 /// The app's proxy, over [ModelProviders.current].
 final ModelProxy _proxy = ModelProxy(
   provider: (id) => ModelProviders.current.provider(id),
@@ -29,6 +39,7 @@ final ModelProxy _proxy = ModelProxy(
   onError: (id, error) => ModelProviders.current.reportError(id, error),
   findProxy: (url) => NetworkProxy.instance.findProxy(url),
   codex: _codex,
+  gemini: _gemini,
 );
 
 Future<List<RemoteModel>> listUpstreamModels(
@@ -37,6 +48,9 @@ Future<List<RemoteModel>> listUpstreamModels(
 ) async {
   if (provider.protocol == ProviderProtocol.codex) {
     return _codex.listModels(provider);
+  }
+  if (provider.protocol == ProviderProtocol.gemini) {
+    return _gemini.listModels(provider);
   }
   final urls = UpstreamUrls.models(provider);
   if (urls.isEmpty) {
@@ -157,5 +171,6 @@ Future<Map<String, String>> providerLaunchEnvironment(
 
 Future<void> stopModelProxy() async {
   _codex.close();
+  _gemini.close();
   await _proxy.close();
 }

@@ -9,9 +9,11 @@ import 'package:flutter/foundation.dart';
 import '../codex/codex_accounts_io.dart';
 import '../codex/codex_api.dart';
 import '../codex/codex_service.dart';
+import '../gemini/gemini_accounts_io.dart';
 import '../launch_environment.dart';
 import '../model_provider.dart';
 import '../upstream.dart';
+import 'translate/gemini_request.dart';
 import 'translate/openai_chat_request.dart';
 import 'translate/openai_chat_response.dart';
 import 'translate/responses_request.dart';
@@ -40,6 +42,7 @@ class ModelProxy {
     this._onError,
     this._findProxy,
     this._codex,
+    this._gemini,
     @visibleForTesting String? token,
   }) : token = token ?? _newToken();
 
@@ -47,6 +50,9 @@ class ModelProxy {
 
   /// The ChatGPT (Codex) providers' accounts.
   final CodexAccounts? _codex;
+
+  /// Google Gemini Code Assist providers' accounts.
+  final GeminiAccounts? _gemini;
   final Future<String?> Function(String id) _key;
   final void Function(String id, String? error)? _onError;
 
@@ -191,7 +197,13 @@ class ModelProxy {
     final thinking = effort.isNotEmpty && effort != ThinkingLevel.none;
     final stream = body['stream'] == true;
     final Map<String, Object?> outgoing;
-    if (provider.protocol == ProviderProtocol.openaiChat) {
+    if (provider.protocol == ProviderProtocol.gemini) {
+      outgoing = convertClaudeRequestToGemini(
+        modelId,
+        body,
+        session: session,
+      );
+    } else if (provider.protocol == ProviderProtocol.openaiChat) {
       outgoing = convertClaudeRequestToOpenAI(
         modelId,
         body,
@@ -221,7 +233,8 @@ class ModelProxy {
         outgoing['service_tier'] = 'priority';
       }
     }
-    if (provider.promptCacheKey) {
+    if (provider.promptCacheKey &&
+        provider.protocol != ProviderProtocol.gemini) {
       if (promptCacheKey(body) case final key?) {
         outgoing['prompt_cache_key'] = key;
       }
@@ -238,6 +251,19 @@ class ModelProxy {
         response,
         modelId,
         session,
+      );
+      if (opened == null) return;
+      lines = opened;
+    } else if (provider.protocol == ProviderProtocol.gemini) {
+      upstream = null;
+      final opened = await _openGemini(
+        provider,
+        body,
+        outgoing,
+        response,
+        modelId,
+        session,
+        stream,
       );
       if (opened == null) return;
       lines = opened;
@@ -290,14 +316,28 @@ class ModelProxy {
           .transform(const LineSplitter());
     }
 
-    if (provider.protocol == ProviderProtocol.openaiChat) {
+    if (provider.protocol == ProviderProtocol.openaiChat ||
+        provider.protocol == ProviderProtocol.gemini) {
       if (!stream) {
-        final text = await utf8.decodeStream(upstream!);
-        return _json(
-          response,
-          200,
-          convertOpenAIResponseToClaudeNonStream(body, text),
-        );
+        if (provider.protocol == ProviderProtocol.openaiChat) {
+          final text = await utf8.decodeStream(upstream!);
+          return _json(
+            response,
+            200,
+            convertOpenAIResponseToClaudeNonStream(body, text),
+          );
+        }
+        final translator = OpenAIChatResponseTranslator(body);
+        await for (final line in lines) {
+          for (final frame in translator.convert(line)) {
+            try {
+              return _json(response, 200, jsonDecode(frame));
+            } on FormatException {
+              return _fail(response, 502, 'Gemini returned an invalid reply');
+            }
+          }
+        }
+        return _fail(response, 502, '${provider.name} ended without a reply');
       }
       _startEvents(response);
       final translator = OpenAIChatResponseTranslator(body);
@@ -334,6 +374,35 @@ class ModelProxy {
       await response.flush();
     }
     return response.close();
+  }
+
+  Future<Stream<String>?> _openGemini(
+    ModelProvider provider,
+    Map<String, Object?> body,
+    Map<String, Object?> outgoing,
+    HttpResponse response,
+    String modelId,
+    String? session,
+    bool stream,
+  ) async {
+    final gemini = _gemini;
+    if (gemini == null) {
+      await _fail(response, 501, 'Google accounts are not available here');
+      return null;
+    }
+    try {
+      return await gemini.open(
+        provider,
+        outgoing,
+        model: modelId,
+        stream: stream,
+        session: session ?? promptCacheKey(body),
+      );
+    } on CodexException catch (error) {
+      _onError?.call(provider.id, error.message);
+      await _json(response, 502, anthropicError(502, error.message));
+      return null;
+    }
   }
 
   /// Sends a Codex provider's request ([outgoing], as Responses) as one of

@@ -99,6 +99,7 @@ class ModelsSettingsPage extends StatefulWidget {
       ProviderProtocol.anthropic => l10n.modelsProtocolAnthropic,
       ProviderProtocol.openaiChat => 'OpenAI Chat Completions',
       ProviderProtocol.openaiResponses => 'OpenAI Responses',
+      ProviderProtocol.gemini => 'Google Gemini',
       ProviderProtocol.codex => 'ChatGPT (Codex)',
     };
   }
@@ -560,7 +561,9 @@ class _ProviderSettingsPageState extends State<ProviderSettingsPage> {
 
   ModelProviders get _providers => widget.providers;
   ModelProvider get _provider => widget.provider;
-  CodexService get _codex => widget.codex ?? codexService;
+  CodexService get _codex => _provider.protocol == ProviderProtocol.gemini
+      ? geminiService
+      : (widget.codex ?? codexService);
 
   @override
   void initState() {
@@ -833,6 +836,9 @@ class _ProviderSettingsPageState extends State<ProviderSettingsPage> {
     if (protocol == ProviderProtocol.codex &&
         provider.name == context.l10n.modelsNewProviderName) {
       provider = provider.copyWith(name: 'ChatGPT');
+    } else if (protocol == ProviderProtocol.gemini &&
+        provider.name == context.l10n.modelsNewProviderName) {
+      provider = provider.copyWith(name: 'Google Gemini');
     }
     return _save(provider);
   }
@@ -849,7 +855,9 @@ class _ProviderSettingsPageState extends State<ProviderSettingsPage> {
     final balance = balanceName(provider.balance);
     return SettingsGroup(
       title: l10n.modelsAccounts,
-      description: l10n.modelsAccountsDescription,
+      description: provider.protocol == ProviderProtocol.gemini
+          ? 'Sign in with Google to use Gemini Code Assist with your Google account quota.'
+          : l10n.modelsAccountsDescription,
       children: [
         if (provider.accounts.isEmpty)
           SettingsRow(label: l10n.modelsAccountsNone)
@@ -898,6 +906,8 @@ class _ProviderSettingsPageState extends State<ProviderSettingsPage> {
         SettingsRow(
           label: login != null
               ? l10n.modelsAccountSigningIn
+              : provider.protocol == ProviderProtocol.gemini
+              ? 'Sign in with Google'
               : l10n.modelsAddAccount,
           description: switch (login) {
             null => l10n.modelsAddAccountDescription,
@@ -930,7 +940,8 @@ class _ProviderSettingsPageState extends State<ProviderSettingsPage> {
                   onPressed: login.cancel,
                 ),
               ] else ...[
-                if (provider.accounts.isNotEmpty)
+                if (provider.accounts.isNotEmpty &&
+                    provider.protocol == ProviderProtocol.codex)
                   IdeButton(
                     label: l10n.modelsRefreshQuota,
                     icon: Codicons.refresh,
@@ -940,7 +951,9 @@ class _ProviderSettingsPageState extends State<ProviderSettingsPage> {
                         : () => unawaited(_refreshQuota()),
                   ),
                 IdeButton(
-                  label: l10n.modelsAddAccount,
+                  label: provider.protocol == ProviderProtocol.gemini
+                      ? 'Sign in with Google'
+                      : l10n.modelsAddAccount,
                   icon: Codicons.add,
                   onPressed: () => unawaited(_addAccount()),
                 ),
@@ -957,7 +970,9 @@ class _ProviderSettingsPageState extends State<ProviderSettingsPage> {
               key: ObjectKey(login),
               value: '',
               label: l10n.modelsAccountCallback,
-              placeholder: 'http://localhost:1455/auth/callback?code=…',
+              placeholder: provider.protocol == ProviderProtocol.gemini
+                  ? 'http://127.0.0.1:…/oauth2callback?code=…'
+                  : 'http://localhost:1455/auth/callback?code=…',
               onCommit: (text) {
                 if (text.trim().isEmpty) return;
                 String? error;

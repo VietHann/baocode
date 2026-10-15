@@ -17,6 +17,9 @@ enum ProviderProtocol {
   /// OpenAI's Responses API: through the local proxy, translated.
   openaiResponses('openai-responses'),
 
+  /// Google Gemini Code Assist, signed in with a Google account (OAuth).
+  gemini('gemini'),
+
   /// ChatGPT's Codex backend, signed in with ChatGPT accounts (OAuth), not
   /// a key: through the local proxy, as Responses.
   codex('codex');
@@ -31,7 +34,7 @@ enum ProviderProtocol {
 
   /// Signed in to with accounts ([ModelProvider.accounts]), not a key and
   /// a base URL.
-  bool get usesAccounts => this == codex;
+  bool get usesAccounts => this == codex || this == gemini;
 
   static ProviderProtocol parse(Object? id) =>
       values.where((value) => value.id == id).firstOrNull ?? anthropic;
@@ -539,10 +542,12 @@ class ModelProvider {
   static String accountRefFor(String id, String accountId) =>
       'provider.$id.$accountId';
 
-  /// The host its base URL names, for the list; ChatGPT's for Codex.
-  String get host => protocol == ProviderProtocol.codex
-      ? 'chatgpt.com'
-      : Uri.tryParse(baseUrl.trim())?.host ?? '';
+  /// The host its base URL names, or the account backend's site.
+  String get host => switch (protocol) {
+    ProviderProtocol.codex => 'chatgpt.com',
+    ProviderProtocol.gemini => 'gemini.google.com',
+    _ => Uri.tryParse(baseUrl.trim())?.host ?? '',
+  };
 
   /// Whether it has what it is reached with: a base URL, or an account.
   bool get connected =>
