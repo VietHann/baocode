@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-/// Adapts Gemini Code Assist SSE chunks to OpenAI Chat Completions-shaped
+/// Adapts Google Antigravity SSE chunks to OpenAI Chat Completions-shaped
 /// chunks. BaoCode's existing OpenAI -> Claude response translator then emits
 /// the Anthropic Messages response Claude Code expects.
 class GeminiResponseAdapter {
@@ -30,10 +30,13 @@ class GeminiResponseAdapter {
     }
     if (decoded is! Map) return;
     final root = Map<String, Object?>.from(decoded);
-    final response = root['response'];
-    if (response is! Map) return;
+    final wrapped = root['response'];
+    final response = wrapped is Map
+        ? Map<String, Object?>.from(wrapped)
+        : root;
 
-    _id ??= '${root['traceId'] ?? 'gemini-${DateTime.now().microsecondsSinceEpoch}'}';
+    _id ??=
+        '${root['traceId'] ?? root['requestId'] ?? 'antigravity-${DateTime.now().microsecondsSinceEpoch}'}';
     final modelVersion = '${response['modelVersion'] ?? model}';
     final delta = <String, Object?>{};
 
@@ -60,9 +63,11 @@ class GeminiResponseAdapter {
           final index = _callIndex++;
           final id = switch (fn['id']) {
             final String value when value.isNotEmpty => value,
-            _ => 'gcall_$index',
+            _ => 'agcall_$index',
           };
-          final args = fn['args'] is Map ? fn['args'] : const <String, Object?>{};
+          final args = fn['args'] is Map
+              ? fn['args']
+              : const <String, Object?>{};
           final call = <String, Object?>{
             'index': index,
             'id': id,
@@ -108,7 +113,7 @@ class GeminiResponseAdapter {
     if (_nonStreamEmitted) return;
     _nonStreamEmitted = true;
     yield 'data: ${jsonEncode({
-      'id': _id ?? 'gemini-${DateTime.now().microsecondsSinceEpoch}',
+      'id': _id ?? 'antigravity-${DateTime.now().microsecondsSinceEpoch}',
       'object': 'chat.completion',
       'created': DateTime.now().millisecondsSinceEpoch ~/ 1000,
       'model': model,
