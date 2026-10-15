@@ -44,10 +44,7 @@ Uri geminiAuthorizeUrl(
     'redirect_uri': endpoints.redirectUri(port),
     'scope': geminiOAuthScopes.join(' '),
     'access_type': 'offline',
-    'include_granted_scopes': 'true',
-    // BaoCode does not share Gemini CLI's credential file, so force an
-    // offline refresh token to be returned for this local account entry.
-    'prompt': 'consent select_account',
+    'prompt': 'consent',
     'state': state,
     'code_challenge': challenge,
     'code_challenge_method': 'S256',
@@ -62,6 +59,8 @@ Map<String, String> geminiCodeForm(
 }) => {
   'grant_type': 'authorization_code',
   'client_id': geminiOAuthClientId,
+  if (geminiOAuthClientSecret.isNotEmpty)
+    'client_secret': geminiOAuthClientSecret,
   'code': code,
   'redirect_uri': endpoints.redirectUri(port),
   'code_verifier': verifier,
@@ -70,6 +69,8 @@ Map<String, String> geminiCodeForm(
 Map<String, String> geminiRefreshForm(String refreshToken) => {
   'grant_type': 'refresh_token',
   'client_id': geminiOAuthClientId,
+  if (geminiOAuthClientSecret.isNotEmpty)
+    'client_secret': geminiOAuthClientSecret,
   'refresh_token': refreshToken,
 };
 
