@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 
@@ -16,9 +17,9 @@ import '../upstream.dart';
 import 'gemini_api.dart';
 import 'gemini_oauth.dart';
 
-/// Google-account backed Gemini Code Assist provider. It intentionally
-/// implements the same account-service surface as Codex so Settings -> Models
-/// can reuse BaoCode's existing account UI and keychain storage.
+/// Google Antigravity accounts. The class keeps BaoCode's existing account
+/// UI/service contract, while authentication, model discovery and inference
+/// all use the Antigravity Google endpoints.
 class GeminiAccounts extends CodexService {
   GeminiAccounts({
     required ModelProviders Function() providers,
@@ -116,11 +117,10 @@ class GeminiAccounts extends CodexService {
 
   Future<String> _refresh(String providerId, ProviderAccount account) async {
     final key = _key(providerId, account.id);
-    final secrets = _providers().secrets;
     final ref = ModelProvider.accountRefFor(providerId, account.id);
     String? refreshToken;
     try {
-      refreshToken = await secrets.read(ref);
+      refreshToken = await _providers().secrets.read(ref);
     } on SecretStoreException catch (error) {
       throw _fail(key, 'The Google token could not be read: $error');
     }
@@ -137,22 +137,22 @@ class GeminiAccounts extends CodexService {
       throw _fail(
         key,
         refused
-            ? 'Google sign-in expired: sign in again.'
+            ? 'Google authorization expired or was revoked: sign in again.'
             : 'The Google token could not be refreshed: ${upstreamErrorMessage(status, text)}',
         signedOut: refused,
       );
     }
+
     final tokens = GeminiTokens.fromJson(_decode(text), _now());
-    if (tokens == null) {
-      throw _fail(key, 'Google returned no access token.');
-    }
+    if (tokens == null) throw _fail(key, 'Google returned no access token.');
     if (tokens.refresh case final rotated? when rotated != refreshToken) {
       try {
-        await secrets.write(ref, rotated);
+        await _providers().secrets.write(ref, rotated);
       } on SecretStoreException catch (error) {
         debugPrint('Google refresh token of ${account.id} not kept: $error');
       }
     }
+
     _tokens[key] = (access: tokens.access, expiresAt: tokens.expiresAt);
     _signedOut.remove(key);
     _errors.remove(key);
@@ -174,7 +174,7 @@ class GeminiAccounts extends CodexService {
   Future<CodexLogin> login(String providerId) async {
     if (geminiOAuthClientId.isEmpty) {
       throw const CodexException(
-        'Google OAuth client id is not configured. Build BaoCode with --dart-define=BAOCODE_GOOGLE_OAUTH_CLIENT_ID=<client-id>.',
+        'Google Antigravity OAuth is not configured in this build.',
       );
     }
     final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
@@ -215,11 +215,12 @@ class GeminiAccounts extends CodexService {
         'Google sign-in failed: ${upstreamErrorMessage(status, text)}',
       );
     }
+
     final tokens = GeminiTokens.fromJson(_decode(text), _now());
     final refreshToken = tokens?.refresh;
     if (tokens == null || refreshToken == null || refreshToken.isEmpty) {
       throw const CodexException(
-        'Google sign-in returned no refresh token. Remove BaoCode/Gemini CLI access from your Google account and sign in again.',
+        'Google sign-in returned no refresh token. Revoke the existing app authorization and sign in again.',
       );
     }
 
@@ -227,7 +228,7 @@ class GeminiAccounts extends CodexService {
     if (email == null || email.isEmpty) {
       throw const CodexException('Google sign-in returned no account email.');
     }
-    final user = await _setupUser(tokens.access);
+    final profile = await _antigravityProfile(tokens.access);
 
     final providers = _providers();
     final provider = providers.provider(providerId);
@@ -236,14 +237,14 @@ class GeminiAccounts extends CodexService {
     final account = switch (provider.account(id)) {
       final known? => known.copyWith(
         email: email,
-        plan: user.tier,
-        accountId: user.project,
+        plan: profile.plan,
+        accountId: profile.project,
       ),
       null => ProviderAccount(
         id: id,
         email: email,
-        plan: user.tier,
-        accountId: user.project,
+        plan: profile.plan,
+        accountId: profile.project,
       ),
     };
 
@@ -279,102 +280,50 @@ class GeminiAccounts extends CodexService {
     };
   }
 
-  Future<({String project, String tier})> _setupUser(String token) async {
-    const metadata = <String, Object?>{
-      'ideType': 'IDE_UNSPECIFIED',
-      'platform': 'PLATFORM_UNSPECIFIED',
-      'pluginType': 'GEMINI',
-    };
-    final load = await _postJson(
-      endpoints.method('loadCodeAssist'),
-      token,
-      {'metadata': metadata},
-    );
-    if (load.status >= 400 || load.json is! Map) {
-      throw CodexException(
-        'Gemini Code Assist setup failed: ${upstreamErrorMessage(load.status, load.text)}',
-      );
-    }
-    final data = load.json as Map;
-    final currentTier = data['currentTier'];
-    final paidTier = data['paidTier'];
-    if (currentTier is Map) {
-      final project = '${data['cloudaicompanionProject'] ?? ''}'.trim();
-      if (project.isEmpty) {
-        throw const CodexException(
-          'This Google account requires a Google Cloud project. BaoCode Google sign-in currently supports the managed personal Gemini Code Assist project only.',
+  /// Ask Antigravity's loadCodeAssist surface for the account's companion
+  /// project and tier. This deliberately does not perform Gemini CLI onboarding.
+  Future<({String project, String plan})> _antigravityProfile(String token) async {
+    for (final base in antigravityEndpoints) {
+      try {
+        final result = await _postJson(
+          endpoints.method(base, 'loadCodeAssist'),
+          token,
+          const {
+            'metadata': {'ideType': 'ANTIGRAVITY'},
+          },
         );
-      }
-      return (
-        project: project,
-        tier: _tierName(paidTier is Map ? paidTier : currentTier),
-      );
-    }
-
-    final allowed = data['allowedTiers'];
-    Map? tier;
-    if (allowed is List) {
-      for (final item in allowed) {
-        if (item is Map && item['isDefault'] == true) {
-          tier = item;
-          break;
+        if (result.status < 200 || result.status >= 300 || result.json is! Map) {
+          continue;
         }
+        final data = result.json as Map;
+        final project = switch (data['cloudaicompanionProject']) {
+          final String value when value.trim().isNotEmpty => value.trim(),
+          _ => antigravityDefaultProject,
+        };
+        final tier = data['paidTier'] is Map ? data['paidTier'] as Map : data['currentTier'];
+        final tierText = tier is Map
+            ? '${tier['name'] ?? tier['id'] ?? ''}'.toLowerCase()
+            : '';
+        final plan = tierText.contains('ultra')
+            ? 'ULTRA'
+            : (tierText.contains('pro') ||
+                      tierText.contains('premium') ||
+                      tierText.contains('advanced'))
+                ? 'PRO'
+                : 'FREE';
+        return (project: project, plan: plan);
+      } on Object {
+        // Try Antigravity's next endpoint.
       }
-      tier ??= allowed.whereType<Map>().firstOrNull;
     }
-    if (tier == null) {
-      final ineligible = data['ineligibleTiers'];
-      final reason = ineligible is List && ineligible.isNotEmpty
-          ? '${(ineligible.first as Map?)?['reasonMessage'] ?? 'Account is not eligible.'}'
-          : 'No eligible Gemini Code Assist tier was returned.';
-      throw CodexException(reason);
-    }
-
-    final tierId = '${tier['id'] ?? ''}';
-    if (tierId != 'free-tier') {
-      throw CodexException(
-        'Google account tier "$tierId" requires a Google Cloud project; only personal managed-project sign-in is enabled.',
-      );
-    }
-    var op = await _postJson(
-      endpoints.method('onboardUser'),
-      token,
-      {'tierId': tierId, 'metadata': metadata},
-    );
-    if (op.status >= 400 || op.json is! Map) {
-      throw CodexException(
-        'Gemini Code Assist onboarding failed: ${upstreamErrorMessage(op.status, op.text)}',
-      );
-    }
-    var operation = op.json as Map;
-    for (var attempt = 0; operation['done'] != true && attempt < 24; attempt++) {
-      final name = '${operation['name'] ?? ''}';
-      if (name.isEmpty) break;
-      await Future<void>.delayed(const Duration(seconds: 5));
-      op = await _getJson(endpoints.operation(name), token);
-      if (op.status >= 400 || op.json is! Map) break;
-      operation = op.json as Map;
-    }
-    final response = operation['response'];
-    final companion = response is Map ? response['cloudaicompanionProject'] : null;
-    final project = companion is Map ? '${companion['id'] ?? ''}'.trim() : '';
-    if (project.isEmpty) {
-      throw const CodexException(
-        'Gemini Code Assist onboarding did not return a managed project.',
-      );
-    }
-    return (project: project, tier: _tierName(tier));
-  }
-
-  static String _tierName(Map tier) {
-    final name = '${tier['name'] ?? ''}'.trim();
-    return name.isNotEmpty ? name : '${tier['id'] ?? 'Google'}';
+    return (project: antigravityDefaultProject, plan: 'FREE');
   }
 
   @override
   Future<void> refreshUsage(ModelProvider provider) async {
-    // Code Assist quota is request/model dependent. We intentionally keep the
-    // generic account row but do not fake Codex-style percentage windows.
+    // Quota is encoded per model in fetchAvailableModels. BaoCode currently
+    // exposes no generic multi-family quota row, so model discovery remains
+    // authoritative and we do not invent Codex-style windows here.
   }
 
   @override
@@ -405,89 +354,169 @@ class GeminiAccounts extends CodexService {
     notifyListeners();
   }
 
+  /// Fetch the model catalog from Google Antigravity for the signed-in
+  /// account. No static/local model list is merged into the response.
   Future<List<RemoteModel>> listModels(ModelProvider provider) async {
-    if (pick(provider) == null) {
-      throw const UpstreamException('Sign in with Google first.');
+    final account = pick(provider);
+    if (account == null) {
+      throw const UpstreamException('Sign in with Google (Antigravity) first.');
     }
-    return geminiCodeAssistModels;
+    final token = await accessToken(provider, account);
+    final project = account.accountId?.trim().isNotEmpty == true
+        ? account.accountId!.trim()
+        : antigravityDefaultProject;
+    String? lastError;
+
+    for (final base in antigravityEndpoints) {
+      for (final body in <Map<String, Object?>>[
+        {'project': project},
+        const {},
+      ]) {
+        try {
+          final result = await _postJson(
+            endpoints.method(base, 'fetchAvailableModels'),
+            token,
+            body,
+          );
+          if (result.status >= 200 && result.status < 300) {
+            final models = parseAntigravityModels(result.json);
+            if (models.isNotEmpty) return models;
+            lastError = 'Google returned an empty Antigravity model catalog.';
+          } else {
+            lastError = upstreamErrorMessage(result.status, result.text);
+          }
+        } on Object catch (error) {
+          lastError = '$error';
+        }
+      }
+    }
+
+    throw UpstreamException(
+      lastError ?? 'Google Antigravity did not return any models.',
+    );
   }
 
-  /// Opens one Code Assist streaming request and returns OpenAI-shaped SSE
-  /// lines for BaoCode's existing OpenAI -> Claude response translator.
+  /// Opens an Antigravity streaming request and adapts its Google SSE frames
+  /// to the OpenAI-shaped stream BaoCode's existing Claude translator consumes.
   Future<Stream<String>> open(
     ModelProvider provider,
-    Map<String, Object?> codeAssistRequest, {
+    Map<String, Object?> translatedRequest, {
     required String model,
     required bool stream,
     String? session,
   }) async {
-    final tried = <String>{};
+    final triedAccounts = <String>{};
     String? lastError;
-    var lastStatus = 429;
 
     while (true) {
-      final account = pick(provider, session: session, exclude: tried);
+      final account = pick(provider, session: session, exclude: triedAccounts);
       if (account == null) {
         throw CodexException(
           lastError ??
               (provider.accounts.isEmpty
-                  ? 'Sign in with Google first.'
-                  : 'No signed-in Google account can be used now.'),
+                  ? 'Sign in with Google (Antigravity) first.'
+                  : 'No signed-in Antigravity account can be used now.'),
         );
       }
 
       String? rejected;
-      for (var attempt = 0; attempt < 2; attempt++) {
+      for (var authAttempt = 0; authAttempt < 2; authAttempt++) {
         final token = await accessToken(provider, account, rejected: rejected);
-        final request = await _http.postUrl(
-          endpoints.method('streamGenerateContent', query: {'alt': 'sse'}),
-        );
-        geminiHeaders(token, events: true).forEach(request.headers.set);
+        final project = account.accountId?.trim().isNotEmpty == true
+            ? account.accountId!.trim()
+            : antigravityDefaultProject;
 
-        final outgoing = Map<String, Object?>.from(codeAssistRequest);
-        outgoing['project'] = account.accountId;
-        outgoing['user_prompt_id'] =
-            session ?? 'baocode-${DateTime.now().microsecondsSinceEpoch}';
-        request.add(utf8.encode(jsonEncode(outgoing)));
-        final response = await request.close().timeout(const Duration(seconds: 60));
-        if (response.statusCode >= 400) {
-          final text = await utf8.decodeStream(response);
-          final message = upstreamErrorMessage(response.statusCode, text);
-          if (response.statusCode == 401 && rejected == null) {
-            rejected = token;
-            continue;
+        for (final base in antigravityEndpoints) {
+          final request = await _http.postUrl(
+            endpoints.method(
+              base,
+              'streamGenerateContent',
+              query: const {'alt': 'sse'},
+            ),
+          );
+          geminiHeaders(token, events: true).forEach(request.headers.set);
+          if (model.toLowerCase().contains('claude')) {
+            request.headers.set(
+              'anthropic-beta',
+              'claude-code-20250219,interleaved-thinking-2025-05-14,fine-grained-tool-streaming-2025-05-14',
+            );
           }
-          lastStatus = response.statusCode;
-          lastError = '${account.displayName}: $message';
-          _errors[_key(provider.id, account.id)] = message;
+
+          final inner = translatedRequest['request'] is Map
+              ? Map<String, Object?>.from(translatedRequest['request'] as Map)
+              : <String, Object?>{};
+          inner.remove('session_id');
+          final outgoing = <String, Object?>{
+            'project': project,
+            'model': model,
+            'userAgent': 'antigravity',
+            'requestType': 'agent',
+            'requestId': _requestId(),
+            'enabledCreditTypes': const ['GOOGLE_ONE_AI'],
+            'request': inner,
+          };
+          request.add(utf8.encode(jsonEncode(outgoing)));
+
+          final response = await request.close().timeout(const Duration(seconds: 60));
+          if (response.statusCode >= 400) {
+            final text = await utf8.decodeStream(response);
+            final message = upstreamErrorMessage(response.statusCode, text);
+            if (response.statusCode == 401 && rejected == null) {
+              rejected = token;
+              break;
+            }
+            lastError = '${account.displayName}: $message';
+            _errors[_key(provider.id, account.id)] = message;
+            notifyListeners();
+
+            if (response.statusCode == 429) {
+              triedAccounts.add(account.id);
+              break;
+            }
+            if (response.statusCode == 404 ||
+                response.statusCode == 502 ||
+                response.statusCode == 503 ||
+                response.statusCode == 504) {
+              continue;
+            }
+            throw CodexException(message);
+          }
+
+          _errors.remove(_key(provider.id, account.id));
           notifyListeners();
-          if (response.statusCode == 401 || response.statusCode == 429) {
-            tried.add(account.id);
-            break;
-          }
-          throw CodexException(message);
-        }
-
-        _errors.remove(_key(provider.id, account.id));
-        notifyListeners();
-        final adapter = GeminiResponseAdapter(model: model, stream: stream);
-        return (() async* {
-          await for (final line in response
-              .transform(const Utf8Decoder(allowMalformed: true))
-              .transform(const LineSplitter())) {
-            for (final converted in adapter.convert(line)) {
+          final adapter = GeminiResponseAdapter(model: model, stream: stream);
+          return (() async* {
+            await for (final line in response
+                .transform(const Utf8Decoder(allowMalformed: true))
+                .transform(const LineSplitter())) {
+              for (final converted in adapter.convert(line)) {
+                yield converted;
+              }
+            }
+            for (final converted in adapter.finish()) {
               yield converted;
             }
-          }
-          for (final converted in adapter.finish()) {
-            yield converted;
-          }
-        })();
+          })();
+        }
+
+        if (rejected != null) continue;
+        break;
       }
-      if (tried.length >= provider.accounts.length) {
-        throw CodexException(lastError ?? 'Gemini request failed ($lastStatus).');
+
+      if (!triedAccounts.contains(account.id)) triedAccounts.add(account.id);
+      if (triedAccounts.length >= provider.accounts.length) {
+        throw CodexException(lastError ?? 'Antigravity request failed.');
       }
     }
+  }
+
+  String _requestId() {
+    final random = Random.secure();
+    final hex = [
+      for (var i = 0; i < 4; i++)
+        random.nextInt(256).toRadixString(16).padLeft(2, '0'),
+    ].join();
+    return 'agent/${DateTime.now().millisecondsSinceEpoch}/$hex';
   }
 
   Future<(int status, String text)> _postForm(
@@ -521,17 +550,6 @@ class GeminiAccounts extends CodexService {
     final request = await _http.postUrl(url);
     geminiHeaders(token).forEach(request.headers.set);
     request.add(utf8.encode(jsonEncode(body)));
-    final response = await request.close().timeout(const Duration(seconds: 30));
-    final text = await utf8.decodeStream(response);
-    return (status: response.statusCode, text: text, json: _decode(text));
-  }
-
-  Future<({int status, String text, Object? json})> _getJson(
-    Uri url,
-    String token,
-  ) async {
-    final request = await _http.getUrl(url);
-    geminiHeaders(token).forEach(request.headers.set);
     final response = await request.close().timeout(const Duration(seconds: 30));
     final text = await utf8.decodeStream(response);
     return (status: response.statusCode, text: text, json: _decode(text));
@@ -628,7 +646,7 @@ class _GeminiLogin implements CodexLogin {
       detail = reason;
       _finish(CodexException('Google sign-in failed: $reason'));
     } else {
-      title = 'Signed in with Google';
+      title = 'Signed in with Google (Antigravity)';
       detail = 'You can close this page and return to BaoCode.';
       _finish(code);
     }
