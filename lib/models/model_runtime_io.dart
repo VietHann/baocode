@@ -23,7 +23,7 @@ final CodexAccounts _codex = CodexAccounts(
 
 CodexService get codexService => _codex;
 
-/// The app's Google Gemini accounts.
+/// The app's Google Antigravity accounts.
 final GeminiAccounts _gemini = GeminiAccounts(
   providers: () => ModelProviders.current,
   findProxy: (url) => NetworkProxy.instance.findProxy(url),

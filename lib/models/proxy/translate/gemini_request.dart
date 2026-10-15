@@ -204,7 +204,10 @@ void _contentParts(Object? content, List<Map<String, Object?>> out) {
 }
 
 Map<String, Object?>? _inlineData(String url) {
-  final match = RegExp(r'^data:([^;,]+);base64,(.+)$', dotAll: true).firstMatch(url);
+  final match = RegExp(
+    r'^data:([^;,]+);base64,(.+)$',
+    dotAll: true,
+  ).firstMatch(url);
   if (match == null) return null;
   return {'mimeType': match.group(1)!, 'data': match.group(2)!};
 }
@@ -281,7 +284,10 @@ Object _sanitizeSchema(Object? value) {
     out['type'] = 'OBJECT';
   }
   if (out.isEmpty) {
-    return <String, Object?>{'type': 'OBJECT', 'properties': <String, Object?>{}};
+    return <String, Object?>{
+      'type': 'OBJECT',
+      'properties': <String, Object?>{},
+    };
   }
   return out;
 }

@@ -51,7 +51,7 @@ class ModelProxy {
   /// The ChatGPT (Codex) providers' accounts.
   final CodexAccounts? _codex;
 
-  /// Google Gemini Code Assist providers' accounts.
+  /// Google Antigravity providers' accounts.
   final GeminiAccounts? _gemini;
   final Future<String?> Function(String id) _key;
   final void Function(String id, String? error)? _onError;
@@ -198,11 +198,7 @@ class ModelProxy {
     final stream = body['stream'] == true;
     final Map<String, Object?> outgoing;
     if (provider.protocol == ProviderProtocol.gemini) {
-      outgoing = convertClaudeRequestToGemini(
-        modelId,
-        body,
-        session: session,
-      );
+      outgoing = convertClaudeRequestToGemini(modelId, body, session: session);
     } else if (provider.protocol == ProviderProtocol.openaiChat) {
       outgoing = convertClaudeRequestToOpenAI(
         modelId,
@@ -331,9 +327,13 @@ class ModelProxy {
         await for (final line in lines) {
           for (final frame in translator.convert(line)) {
             try {
-              return _json(response, 200, jsonDecode(frame));
+              return await _json(response, 200, jsonDecode(frame));
             } on FormatException {
-              return _fail(response, 502, 'Gemini returned an invalid reply');
+              return await _fail(
+                response,
+                502,
+                'Antigravity returned an invalid reply',
+              );
             }
           }
         }

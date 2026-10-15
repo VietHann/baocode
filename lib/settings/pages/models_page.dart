@@ -99,7 +99,7 @@ class ModelsSettingsPage extends StatefulWidget {
       ProviderProtocol.anthropic => l10n.modelsProtocolAnthropic,
       ProviderProtocol.openaiChat => 'OpenAI Chat Completions',
       ProviderProtocol.openaiResponses => 'OpenAI Responses',
-      ProviderProtocol.gemini => 'Google Gemini',
+      ProviderProtocol.gemini => 'Google Antigravity',
       ProviderProtocol.codex => 'ChatGPT (Codex)',
     };
   }
@@ -838,7 +838,7 @@ class _ProviderSettingsPageState extends State<ProviderSettingsPage> {
       provider = provider.copyWith(name: 'ChatGPT');
     } else if (protocol == ProviderProtocol.gemini &&
         provider.name == context.l10n.modelsNewProviderName) {
-      provider = provider.copyWith(name: 'Google Gemini');
+      provider = provider.copyWith(name: 'Google Antigravity');
     }
     return _save(provider);
   }
@@ -856,7 +856,7 @@ class _ProviderSettingsPageState extends State<ProviderSettingsPage> {
     return SettingsGroup(
       title: l10n.modelsAccounts,
       description: provider.protocol == ProviderProtocol.gemini
-          ? 'Sign in with Google to use Gemini Code Assist with your Google account quota.'
+          ? 'Sign in with Google to use the models Google exposes to your Antigravity account.'
           : l10n.modelsAccountsDescription,
       children: [
         if (provider.accounts.isEmpty)

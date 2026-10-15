@@ -33,7 +33,8 @@ class GeminiEndpoints {
   const GeminiEndpoints({
     this.authorizeBase = 'https://accounts.google.com/o/oauth2/v2/auth',
     this.tokenBase = 'https://oauth2.googleapis.com/token',
-    this.userInfoBase = 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json',
+    this.userInfoBase =
+        'https://www.googleapis.com/oauth2/v1/userinfo?alt=json',
   });
 
   final String authorizeBase;
@@ -44,21 +45,19 @@ class GeminiEndpoints {
   Uri get token => Uri.parse(tokenBase);
   Uri get userInfo => Uri.parse(userInfoBase);
 
-  Uri method(
-    String base,
-    String name, {
-    Map<String, String>? query,
-  }) => Uri.parse('$base/v1internal:$name').replace(queryParameters: query);
+  Uri method(String base, String name, {Map<String, String>? query}) =>
+      Uri.parse('$base/v1internal:$name').replace(queryParameters: query);
 
   String redirectUri(int port) => 'http://127.0.0.1:$port/oauth2callback';
 }
 
-Map<String, String> geminiHeaders(String accessToken, {bool events = false}) => {
-  'authorization': 'Bearer $accessToken',
-  'user-agent': antigravityUserAgent,
-  'content-type': 'application/json',
-  'accept': events ? 'text/event-stream' : 'application/json',
-};
+Map<String, String> geminiHeaders(String accessToken, {bool events = false}) =>
+    {
+      'authorization': 'Bearer $accessToken',
+      'user-agent': antigravityUserAgent,
+      'content-type': 'application/json',
+      'accept': events ? 'text/event-stream' : 'application/json',
+    };
 
 /// Parse exactly the model catalog Google returns from Antigravity's
 /// fetchAvailableModels. No locally invented/static model catalog is merged in.
@@ -80,7 +79,8 @@ List<RemoteModel> parseAntigravityModels(Object? json) {
     };
     final thinking = info['supportsThinking'] == true;
     final lower = id.toLowerCase();
-    final images = info['supportsImages'] == true ||
+    final images =
+        info['supportsImages'] == true ||
         lower.contains('gemini') ||
         lower.contains('claude');
 

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_initializing_formals
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -125,7 +127,11 @@ class GeminiAccounts extends CodexService {
       throw _fail(key, 'The Google token could not be read: $error');
     }
     if (refreshToken == null || refreshToken.isEmpty) {
-      throw _fail(key, 'Signed out: sign in with Google again.', signedOut: true);
+      throw _fail(
+        key,
+        'Signed out: sign in with Google again.',
+        signedOut: true,
+      );
     }
 
     final (status, text) = await _postForm(
@@ -203,12 +209,7 @@ class GeminiAccounts extends CodexService {
   ) async {
     final (status, text) = await _postForm(
       endpoints.token,
-      geminiCodeForm(
-        endpoints,
-        port: port,
-        code: code,
-        verifier: verifier,
-      ),
+      geminiCodeForm(endpoints, port: port, code: code, verifier: verifier),
     );
     if (status >= 400) {
       throw CodexException(
@@ -232,7 +233,9 @@ class GeminiAccounts extends CodexService {
 
     final providers = _providers();
     final provider = providers.provider(providerId);
-    if (provider == null) throw const CodexException('The provider was removed.');
+    if (provider == null) {
+      throw const CodexException('The provider was removed.');
+    }
     final id = geminiAccountKey(email);
     final account = switch (provider.account(id)) {
       final known? => known.copyWith(
@@ -254,7 +257,9 @@ class GeminiAccounts extends CodexService {
         refreshToken,
       );
     } on SecretStoreException catch (error) {
-      throw CodexException('The Google refresh token could not be kept: $error');
+      throw CodexException(
+        'The Google refresh token could not be kept: $error',
+      );
     }
 
     final key = _key(providerId, account.id);
@@ -275,14 +280,17 @@ class GeminiAccounts extends CodexService {
     final text = await utf8.decodeStream(response);
     if (response.statusCode >= 400) return null;
     return switch (_decode(text)) {
-      {'email': final String email} when email.trim().isNotEmpty => email.trim(),
+      {'email': final String email} when email.trim().isNotEmpty =>
+        email.trim(),
       _ => null,
     };
   }
 
   /// Ask Antigravity's loadCodeAssist surface for the account's companion
   /// project and tier. This deliberately does not perform Gemini CLI onboarding.
-  Future<({String project, String plan})> _antigravityProfile(String token) async {
+  Future<({String project, String plan})> _antigravityProfile(
+    String token,
+  ) async {
     for (final base in antigravityEndpoints) {
       try {
         final result = await _postJson(
@@ -292,7 +300,9 @@ class GeminiAccounts extends CodexService {
             'metadata': {'ideType': 'ANTIGRAVITY'},
           },
         );
-        if (result.status < 200 || result.status >= 300 || result.json is! Map) {
+        if (result.status < 200 ||
+            result.status >= 300 ||
+            result.json is! Map) {
           continue;
         }
         final data = result.json as Map;
@@ -300,17 +310,19 @@ class GeminiAccounts extends CodexService {
           final String value when value.trim().isNotEmpty => value.trim(),
           _ => antigravityDefaultProject,
         };
-        final tier = data['paidTier'] is Map ? data['paidTier'] as Map : data['currentTier'];
+        final tier = data['paidTier'] is Map
+            ? data['paidTier'] as Map
+            : data['currentTier'];
         final tierText = tier is Map
             ? '${tier['name'] ?? tier['id'] ?? ''}'.toLowerCase()
             : '';
         final plan = tierText.contains('ultra')
             ? 'ULTRA'
             : (tierText.contains('pro') ||
-                      tierText.contains('premium') ||
-                      tierText.contains('advanced'))
-                ? 'PRO'
-                : 'FREE';
+                  tierText.contains('premium') ||
+                  tierText.contains('advanced'))
+            ? 'PRO'
+            : 'FREE';
         return (project: project, plan: plan);
       } on Object {
         // Try Antigravity's next endpoint.
@@ -457,7 +469,9 @@ class GeminiAccounts extends CodexService {
           };
           request.add(utf8.encode(jsonEncode(outgoing)));
 
-          final response = await request.close().timeout(const Duration(seconds: 60));
+          final response = await request.close().timeout(
+            const Duration(seconds: 60),
+          );
           if (response.statusCode >= 400) {
             final text = await utf8.decodeStream(response);
             final message = upstreamErrorMessage(response.statusCode, text);
@@ -486,9 +500,10 @@ class GeminiAccounts extends CodexService {
           notifyListeners();
           final adapter = GeminiResponseAdapter(model: model, stream: stream);
           return (() async* {
-            await for (final line in response
-                .transform(const Utf8Decoder(allowMalformed: true))
-                .transform(const LineSplitter())) {
+            await for (final line
+                in response
+                    .transform(const Utf8Decoder(allowMalformed: true))
+                    .transform(const LineSplitter())) {
               for (final converted in adapter.convert(line)) {
                 yield converted;
               }
@@ -533,7 +548,9 @@ class GeminiAccounts extends CodexService {
         )
         ..set(HttpHeaders.acceptHeader, 'application/json');
       request.write(Uri(queryParameters: form).query);
-      final response = await request.close().timeout(const Duration(seconds: 30));
+      final response = await request.close().timeout(
+        const Duration(seconds: 30),
+      );
       return (response.statusCode, await utf8.decodeStream(response));
     } on SocketException catch (error) {
       throw CodexException('Could not reach ${url.host}: ${error.message}');
@@ -592,7 +609,9 @@ class _GeminiLogin implements CodexLogin {
   void submit(String callback) {
     final uri = Uri.tryParse(callback.trim());
     if (uri == null || uri.queryParameters['state'] != _state) {
-      throw const CodexException('That callback is not from this Google sign-in.');
+      throw const CodexException(
+        'That callback is not from this Google sign-in.',
+      );
     }
     final code = uri.queryParameters['code'];
     if (code == null || code.isEmpty) {
@@ -641,7 +660,8 @@ class _GeminiLogin implements CodexLogin {
       detail = 'Start it again from BaoCode.';
     } else if (error != null || code == null || code.isEmpty) {
       response.statusCode = HttpStatus.badRequest;
-      final reason = query['error_description'] ?? error ?? 'No code was returned.';
+      final reason =
+          query['error_description'] ?? error ?? 'No code was returned.';
       title = 'Google sign-in failed';
       detail = reason;
       _finish(CodexException('Google sign-in failed: $reason'));

@@ -109,4 +109,7 @@ class GeminiTokens {
 }
 
 String geminiAccountKey(String email) =>
-    '${sha256.convert(utf8.encode(email.trim().toLowerCase()))}'.substring(0, 12);
+    '${sha256.convert(utf8.encode(email.trim().toLowerCase()))}'.substring(
+      0,
+      12,
+    );

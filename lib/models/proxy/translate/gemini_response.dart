@@ -31,9 +31,7 @@ class GeminiResponseAdapter {
     if (decoded is! Map) return;
     final root = Map<String, Object?>.from(decoded);
     final wrapped = root['response'];
-    final response = wrapped is Map
-        ? Map<String, Object?>.from(wrapped)
-        : root;
+    final response = wrapped is Map ? Map<String, Object?>.from(wrapped) : root;
 
     _id ??=
         '${root['traceId'] ?? root['requestId'] ?? 'antigravity-${DateTime.now().microsecondsSinceEpoch}'}';
@@ -42,7 +40,9 @@ class GeminiResponseAdapter {
 
     final candidates = response['candidates'];
     Map? candidate;
-    if (candidates is List && candidates.isNotEmpty && candidates.first is Map) {
+    if (candidates is List &&
+        candidates.isNotEmpty &&
+        candidates.first is Map) {
       candidate = candidates.first as Map;
     }
     final content = candidate?['content'];
@@ -82,7 +82,8 @@ class GeminiResponseAdapter {
       if (toolCalls.isNotEmpty) delta['tool_calls'] = toolCalls;
     }
 
-    if (candidate?['finishReason'] case final String reason when reason.isNotEmpty) {
+    if (candidate?['finishReason'] case final String reason
+        when reason.isNotEmpty) {
       _finish = _finishReason(reason, _calls.isNotEmpty);
     }
     _usage = _openAiUsage(response['usageMetadata']) ?? _usage;
@@ -95,11 +96,7 @@ class GeminiResponseAdapter {
       'created': DateTime.now().millisecondsSinceEpoch ~/ 1000,
       'model': modelVersion,
       'choices': [
-        {
-          'index': 0,
-          'delta': delta,
-          if (_finish != null) 'finish_reason': _finish,
-        },
+        {'index': 0, 'delta': delta, if (_finish != null) 'finish_reason': _finish},
       ],
       if (_usage != null) 'usage': _usage,
     })}';
@@ -120,11 +117,7 @@ class GeminiResponseAdapter {
       'choices': [
         {
           'index': 0,
-          'message': {
-            'role': 'assistant',
-            'content': _text.toString(),
-            if (_calls.isNotEmpty) 'tool_calls': _calls,
-          },
+          'message': {'role': 'assistant', 'content': _text.toString(), if (_calls.isNotEmpty) 'tool_calls': _calls},
           'finish_reason': _finish ?? (_calls.isNotEmpty ? 'tool_calls' : 'stop'),
         },
       ],
@@ -133,15 +126,18 @@ class GeminiResponseAdapter {
   }
 }
 
-String _finishReason(String value, bool hasCalls) => switch (value.toUpperCase()) {
-  'MAX_TOKENS' => 'length',
-  'SAFETY' || 'RECITATION' || 'BLOCKLIST' || 'PROHIBITED_CONTENT' =>
-    'content_filter',
-  'STOP' when hasCalls => 'tool_calls',
-  'STOP' => 'stop',
-  _ when hasCalls => 'tool_calls',
-  _ => 'stop',
-};
+String _finishReason(String value, bool hasCalls) =>
+    switch (value.toUpperCase()) {
+      'MAX_TOKENS' => 'length',
+      'SAFETY' ||
+      'RECITATION' ||
+      'BLOCKLIST' ||
+      'PROHIBITED_CONTENT' => 'content_filter',
+      'STOP' when hasCalls => 'tool_calls',
+      'STOP' => 'stop',
+      _ when hasCalls => 'tool_calls',
+      _ => 'stop',
+    };
 
 Map<String, Object?>? _openAiUsage(Object? value) {
   if (value is! Map) return null;
@@ -158,7 +154,6 @@ Map<String, Object?>? _openAiUsage(Object? value) {
     'prompt_tokens': prompt,
     'completion_tokens': output,
     'total_tokens': total == 0 ? prompt + output : total,
-    if (cached > 0)
-      'prompt_tokens_details': {'cached_tokens': cached},
+    if (cached > 0) 'prompt_tokens_details': {'cached_tokens': cached},
   };
 }

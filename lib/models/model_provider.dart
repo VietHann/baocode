@@ -17,7 +17,7 @@ enum ProviderProtocol {
   /// OpenAI's Responses API: through the local proxy, translated.
   openaiResponses('openai-responses'),
 
-  /// Google Gemini Code Assist, signed in with a Google account (OAuth).
+  /// Google Antigravity, signed in with a Google account (OAuth).
   gemini('gemini'),
 
   /// ChatGPT's Codex backend, signed in with ChatGPT accounts (OAuth), not
@@ -778,7 +778,9 @@ String substituteVariables(
   return value.replaceAllMapped(RegExp(r'\{\{([^}]*)\}\}'), (match) {
     final name = match.group(1)!.trim();
     final replacement = known[name];
-    return replacement == null || replacement.isEmpty ? match.group(0)! : replacement;
+    return replacement == null || replacement.isEmpty
+        ? match.group(0)!
+        : replacement;
   });
 }
 
