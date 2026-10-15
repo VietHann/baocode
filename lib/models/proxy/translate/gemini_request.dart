@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'openai_chat_request.dart';
 
+/// Claude Messages -> Google Antigravity GenerateContent request body.
 Map<String, Object?> convertClaudeRequestToGemini(
   String model,
   Map<String, Object?> request, {
@@ -14,7 +15,7 @@ Map<String, Object?> convertClaudeRequestToGemini(
     preserveThinking: false,
   );
 
-  final contents = <Map<String, Object?>>[];
+  final rawContents = <Map<String, Object?>>[];
   final systemParts = <Map<String, Object?>>[];
   final toolNameById = <String, String>{};
 
@@ -47,18 +48,23 @@ Map<String, Object?> convertClaudeRequestToGemini(
                 'name': name,
                 'args': _jsonObject(fn['arguments']),
               },
+              // Antigravity validates thought signatures on replayed tool calls.
+              // Its own client accepts this sentinel when no signature was kept.
+              'thoughtSignature': 'skip_thought_signature_validator',
             });
           }
         }
-        if (parts.isNotEmpty) contents.add({'role': 'model', 'parts': parts});
+        if (parts.isNotEmpty) {
+          rawContents.add({'role': 'model', 'parts': parts});
+        }
         continue;
       }
 
       if (role == 'tool') {
         final id = '${raw['tool_call_id'] ?? ''}';
-        final name = '${raw['name'] ?? toolNameById[id] ?? 'tool'}';
+        final name = '${raw['name'] ?? toolNameById[id] ?? 'function'}';
         final value = _jsonValue(raw['content']);
-        contents.add({
+        rawContents.add({
           'role': 'user',
           'parts': [
             {
@@ -66,7 +72,7 @@ Map<String, Object?> convertClaudeRequestToGemini(
                 'name': name,
                 'response': value is Map
                     ? Map<String, Object?>.from(value)
-                    : {'output': value},
+                    : {'result': value},
               },
             },
           ],
@@ -75,20 +81,47 @@ Map<String, Object?> convertClaudeRequestToGemini(
       }
 
       _contentParts(raw['content'], parts);
-      if (parts.isNotEmpty) contents.add({'role': 'user', 'parts': parts});
+      if (parts.isEmpty) parts.add({'text': ' '});
+      rawContents.add({'role': 'user', 'parts': parts});
     }
+  }
+
+  // CloudCode expects user/model turns to alternate. Merge adjacent messages
+  // of the same role rather than manufacturing extra model turns.
+  final contents = <Map<String, Object?>>[];
+  for (final item in rawContents) {
+    final role = '${item['role']}';
+    final parts = item['parts'] as List;
+    if (contents.isNotEmpty && contents.last['role'] == role) {
+      (contents.last['parts'] as List).addAll(parts);
+    } else {
+      contents.add({
+        'role': role,
+        'parts': List<Map<String, Object?>>.from(parts),
+      });
+    }
+  }
+  if (contents.isNotEmpty && contents.first['role'] != 'user') {
+    contents.insert(0, {
+      'role': 'user',
+      'parts': [
+        {'text': ' '},
+      ],
+    });
   }
 
   final requestBody = <String, Object?>{
     'contents': contents,
-    if (systemParts.isNotEmpty) 'systemInstruction': {'parts': systemParts},
-    if (session != null && session.isNotEmpty) 'session_id': session,
+    if (systemParts.isNotEmpty)
+      'systemInstruction': {'role': 'system', 'parts': systemParts},
   };
 
-  final config = <String, Object?>{};
-  if (openai['max_tokens'] case final num value) {
-    config['maxOutputTokens'] = value.toInt();
-  }
+  final config = <String, Object?>{
+    'maxOutputTokens': switch (openai['max_tokens']) {
+      final num value when value > 0 => value.toInt(),
+      _ => 65536,
+    },
+  };
   if (openai['temperature'] case final num value) config['temperature'] = value;
   if (openai['top_p'] case final num value) config['topP'] = value;
   switch (openai['stop']) {
@@ -97,7 +130,7 @@ Map<String, Object?> convertClaudeRequestToGemini(
     case final List stops when stops.isNotEmpty:
       config['stopSequences'] = [for (final stop in stops) '$stop'];
   }
-  if (config.isNotEmpty) requestBody['generationConfig'] = config;
+  requestBody['generationConfig'] = config;
 
   final tools = openai['tools'];
   if (tools is List) {
@@ -111,13 +144,16 @@ Map<String, Object?> convertClaudeRequestToGemini(
         'name': name,
         if ('${fn['description'] ?? ''}'.isNotEmpty)
           'description': '${fn['description']}',
-        if (fn['parameters'] != null) 'parameters': fn['parameters'],
+        'parameters': _sanitizeSchema(fn['parameters']),
       });
     }
     if (declarations.isNotEmpty) {
       requestBody['tools'] = [
         {'functionDeclarations': declarations},
       ];
+      requestBody['toolConfig'] = {
+        'functionCallingConfig': {'mode': 'AUTO'},
+      };
     }
   }
 
@@ -141,6 +177,8 @@ Map<String, Object?> convertClaudeRequestToGemini(
     requestBody['toolConfig'] = {'functionCallingConfig': functionCalling};
   }
 
+  // The outer Antigravity envelope (project, requestId, credit type, model)
+  // is added by GeminiAccounts, where the signed-in account/project is known.
   return {'model': model, 'request': requestBody};
 }
 
@@ -184,5 +222,66 @@ Object? _jsonValue(Object? value) {
 
 Map<String, Object?> _jsonObject(Object? value) {
   final decoded = _jsonValue(value);
-  return decoded is Map ? Map<String, Object?>.from(decoded) : <String, Object?>{};
+  return decoded is Map
+      ? Map<String, Object?>.from(decoded)
+      : <String, Object?>{};
+}
+
+const _unsupportedSchemaKeys = {
+  r'$schema',
+  r'$ref',
+  r'$defs',
+  r'$comment',
+  'examples',
+  'unevaluatedProperties',
+  'unevaluatedItems',
+  'patternProperties',
+  'propertyNames',
+  'exclusiveMinimum',
+  'exclusiveMaximum',
+  'multipleOf',
+  'dependencies',
+  'dependentSchemas',
+  'dependentRequired',
+  'deprecated',
+  'readOnly',
+  'writeOnly',
+  'x-mcp-header',
+  'const',
+  'default',
+  'additionalProperties',
+  'title',
+  'format',
+};
+
+const _protoTypes = {
+  'string': 'STRING',
+  'number': 'NUMBER',
+  'integer': 'INTEGER',
+  'boolean': 'BOOLEAN',
+  'array': 'ARRAY',
+  'object': 'OBJECT',
+};
+
+Object _sanitizeSchema(Object? value) {
+  if (value is List) return [for (final item in value) _sanitizeSchema(item)];
+  if (value is! Map) return value ?? <String, Object?>{};
+  final out = <String, Object?>{};
+  for (final entry in value.entries) {
+    final key = '${entry.key}';
+    if (_unsupportedSchemaKeys.contains(key)) continue;
+    final child = entry.value;
+    if (key == 'type' && child is String) {
+      out[key] = _protoTypes[child.toLowerCase()] ?? child.toUpperCase();
+    } else {
+      out[key] = _sanitizeSchema(child);
+    }
+  }
+  if (!out.containsKey('type') && out.containsKey('properties')) {
+    out['type'] = 'OBJECT';
+  }
+  if (out.isEmpty) {
+    return <String, Object?>{'type': 'OBJECT', 'properties': <String, Object?>{}};
+  }
+  return out;
 }
