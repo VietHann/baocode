@@ -5,6 +5,7 @@ on:
     branches: [work/vietnamese-preparation]
     paths:
       - .github/workflows/validate_vi.yml
+      - lib/l10n/app_vi.arb
   workflow_dispatch:
 
 permissions:
