@@ -125,6 +125,14 @@ void main() {
         }
       }
     });
+
+    test('Vietnamese has curated common and language-setting strings', () {
+      final vi = _arb('app_vi.arb');
+      expect(vi['@@locale'], 'vi');
+      expect(vi['commonCancel'], 'Hủy');
+      expect(vi['languageSettingsDisplayLanguage'], 'Ngôn ngữ hiển thị');
+      expect(vi['cmdCategoryTerminal'], 'Terminal');
+    });
   });
 
   group('AppLocale', () {
@@ -256,6 +264,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(locale.setting, AppLocale.vietnamese);
       expect(locale.locale, const Locale('vi'));
+      expect(find.text('Ngôn ngữ hiển thị'), findsOneWidget);
       expect(storage.writes, ['zh-cn', 'vi']);
 
       await tester.tap(find.text('Tiếng Việt'));
