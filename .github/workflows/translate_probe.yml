@@ -1,0 +1,28 @@
+name: Translation endpoint connectivity probe (temporary)
+
+on:
+  push:
+    branches: [work/vietnamese-preparation]
+    paths: [.github/workflows/translate_probe.yml]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Check public translation endpoint
+        run: |
+          python - <<'PY'
+          import json
+          import urllib.parse
+          import urllib.request
+          import time
+          url = "https://translate.googleapis.com/translate_a/single?" + urllib.parse.urlencode({"client":"gtx","sl":"en","tl":"vi","dt":"t","q":"Hello, world!"})
+          start = time.monotonic()
+          try:
+              with urllib.request.urlopen(url, timeout=12) as res:
+                  print("STATUS:", res.status)
+                  print("BODY:", res.read(400).decode("utf-8"))
+          finally:
+              print("ELAPSED:", time.monotonic() - start)
+          PY
