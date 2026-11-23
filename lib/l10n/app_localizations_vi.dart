@@ -359,7 +359,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get cmdTerminalPaste => 'Dán vào Active Terminal';
 
   @override
-  String get cmdTerminalPasteSelection => 'Dán lựa chọn vào Active Terminal';
+  String get cmdTerminalPasteSelection =>
+      'Dán phần đã chọn vào Terminal hiện tại';
 
   @override
   String get cmdTerminalClearSelection => 'Xóa lựa chọn';
@@ -386,13 +387,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get cmdTerminalSendSequence => 'Gửi trình tự';
 
   @override
-  String get cmdTerminalKillAll => 'Tiêu diệt tất cả các thiết bị đầu cuối';
+  String get cmdTerminalKillAll => 'Đóng tất cả Terminal';
 
   @override
   String get cmdFindInFiles => 'Tìm trong Tệp';
 
   @override
-  String get cmdReplaceInFiles => 'Thay thế trong tập tin';
+  String get cmdReplaceInFiles => 'Thay thế trong tệp';
 
   @override
   String get cmdFocusNextSearchResult =>
@@ -635,7 +636,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get cmdListExpand => 'Mở rộng';
 
   @override
-  String get cmdListCollapse => 'Sụp đổ';
+  String get cmdListCollapse => 'Thu gọn';
 
   @override
   String get cmdListSelect => 'Lựa chọn';
@@ -838,10 +839,10 @@ class AppLocalizationsVi extends AppLocalizations {
       'Con trỏ Word Phần bên phải Chọn';
 
   @override
-  String get cmdEditorDeleteWordLeft => 'Xóa từ còn lại';
+  String get cmdEditorDeleteWordLeft => 'Xóa từ bên trái';
 
   @override
-  String get cmdEditorDeleteWordRight => 'Xóa từ ngay';
+  String get cmdEditorDeleteWordRight => 'Xóa từ bên phải';
 
   @override
   String get cmdEditorDeleteWordStartLeft => 'Xóa từ bắt đầu bên trái';
@@ -1138,28 +1139,25 @@ class AppLocalizationsVi extends AppLocalizations {
   String get cmdTogglePanel => 'Chuyển đổi chế độ hiển thị của bảng điều khiển';
 
   @override
-  String get cmdToggleTerminal => 'Chuyển đổi thiết bị đầu cuối';
+  String get cmdToggleTerminal => 'Bật/tắt Terminal';
 
   @override
-  String get cmdNewTerminal => 'Tạo thiết bị đầu cuối mới';
+  String get cmdNewTerminal => 'Tạo Terminal mới';
 
   @override
-  String get cmdKillTerminal =>
-      'Tiêu diệt phiên bản thiết bị đầu cuối đang hoạt động';
+  String get cmdKillTerminal => 'Đóng Terminal hiện tại';
 
   @override
   String get cmdRenameTerminal => 'Đổi tên...';
 
   @override
-  String get cmdFocusNextTerminal =>
-      'Tập trung vào nhóm thiết bị đầu cuối tiếp theo';
+  String get cmdFocusNextTerminal => 'Tập trung vào nhóm Terminal tiếp theo';
 
   @override
-  String get cmdFocusPreviousTerminal =>
-      'Tập trung vào nhóm thiết bị đầu cuối trước đó';
+  String get cmdFocusPreviousTerminal => 'Tập trung vào nhóm Terminal trước đó';
 
   @override
-  String get cmdFocusTerminal => 'Thiết bị đầu cuối tập trung';
+  String get cmdFocusTerminal => 'Terminal tập trung';
 
   @override
   String get cmdRunTask => 'Chạy tác vụ';
@@ -1192,7 +1190,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get cmdShowSearch => 'Hiển thị tìm kiếm';
 
   @override
-  String get cmdShowSourceControl => 'Hiển thị kiểm soát nguồn';
+  String get cmdShowSourceControl => 'Hiển thị quản lý mã nguồn';
 
   @override
   String get cmdShowExtensions => 'Hiển thị tiện ích mở rộng';
@@ -1389,7 +1387,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get cmdRefactor => 'Tái cấu trúc...';
 
   @override
-  String get cmdSourceAction => 'Nguồn hành động...';
+  String get cmdSourceAction => 'Thao tác nguồn...';
 
   @override
   String get cmdTriggerSuggest => 'Đề xuất kích hoạt';
@@ -1404,16 +1402,16 @@ class AppLocalizationsVi extends AppLocalizations {
   String get quickOpenRecentlyOpened => 'mới mở gần đây';
 
   @override
-  String get quickOpenFiles => 'tập tin';
+  String get quickOpenFiles => 'tệp';
 
   @override
-  String get quickOpenLoadingFiles => 'Đang tải tập tin…';
+  String get quickOpenLoadingFiles => 'Đang tải tệp…';
 
   @override
-  String get quickOpenSearchingFiles => 'Đang tìm kiếm tập tin…';
+  String get quickOpenSearchingFiles => 'Đang tìm kiếm tệp…';
 
   @override
-  String get quickOpenNoFiles => 'Không có tập tin nào trong dự án này';
+  String get quickOpenNoFiles => 'Không có tệp nào trong dự án này';
 
   @override
   String get quickOpenNoMatchingResults => 'Không có kết quả phù hợp';
@@ -1485,7 +1483,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get menuHideSidebar => 'Ẩn thanh bên';
 
   @override
-  String get menuKeepOnTop => 'Luôn dẫn đầu';
+  String get menuKeepOnTop => 'Luôn ở trên cùng';
 
   @override
   String get menuContextPanel => 'Bảng ngữ cảnh';
@@ -1500,7 +1498,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get windowHideSidebar => 'Ẩn thanh bên';
 
   @override
-  String get chatTerminalHide => 'Ẩn thiết bị đầu cuối';
+  String get chatTerminalHide => 'Ẩn Terminal';
 
   @override
   String get cmdToggleSidePanel => 'Chuyển đổi bảng điều khiển bên';
@@ -1510,22 +1508,22 @@ class AppLocalizationsVi extends AppLocalizations {
       'Chuyển đổi vị trí bảng điều khiển bên';
 
   @override
-  String get cmdSidePanelChanges => 'Hiển thị các thay đổi của đại lý';
+  String get cmdSidePanelChanges => 'Hiển thị các thay đổi của agent';
 
   @override
-  String get cmdSidePanelFiles => 'Hiển thị tập tin đại lý';
+  String get cmdSidePanelFiles => 'Hiển thị tệp agent';
 
   @override
   String get cmdSidePanelUsage => 'Hiển thị cách sử dụng hội thoại';
 
   @override
-  String get cmdSidePanelTerminal => 'Hiển thị thiết bị đầu cuối đại lý';
+  String get cmdSidePanelTerminal => 'Hiển thị Terminal agent';
 
   @override
   String get cmdSidePanelCloseTab => 'Đóng tab bảng điều khiển bên';
 
   @override
-  String get sidePanelFiles => 'Tập tin';
+  String get sidePanelFiles => 'tệp';
 
   @override
   String get sidePanelTerminal => 'Phần cuối';
@@ -1796,19 +1794,19 @@ class AppLocalizationsVi extends AppLocalizations {
   String get sidePanelUnchanged => 'Không có sự khác biệt';
 
   @override
-  String get sidePanelDeleted => 'Người đại diện đã xóa tập tin này.';
+  String get sidePanelDeleted => 'Agent đã xóa tệp này.';
 
   @override
-  String get sidePanelTerminals => 'Thiết bị đầu cuối';
+  String get sidePanelTerminals => 'Terminal';
 
   @override
-  String get sidePanelRevealInFiles => 'Tiết lộ trong tập tin';
+  String get sidePanelRevealInFiles => 'Tiết lộ trong tệp';
 
   @override
   String get sidePanelAddToChat => 'Thêm vào trò chuyện';
 
   @override
-  String get termClearTask => 'Thông thoáng';
+  String get termClearTask => 'Xóa';
 
   @override
   String get termClearEndedTasks => 'Xóa tất cả nhiệm vụ đã kết thúc';
@@ -1817,7 +1815,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get sidePanelBackgroundTasks => 'Tác vụ nền';
 
   @override
-  String get sidePanelSelectFile => 'Chọn một tập tin để xem trước nó';
+  String get sidePanelSelectFile => 'Chọn một tệp để xem trước nó';
 
   @override
   String get sidePanelSelectTerminal =>
@@ -1827,7 +1825,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get sidePanelNoFolder => 'Cuộc trò chuyện này không có thư mục dự án';
 
   @override
-  String get sidePanelSearchFiles => 'Tìm kiếm tập tin của dự án';
+  String get sidePanelSearchFiles => 'Tìm kiếm tệp của dự án';
 
   @override
   String get sidePanelCloseSearch => 'Đóng tìm kiếm';
@@ -1852,7 +1850,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get aboutDescription =>
-      'Các đại lý chạy Mã Claude như một quy trình cục bộ; những gì họ làm — thông báo, công cụ, điểm khác biệt và bảng điều khiển — được hiển thị ở đây.';
+      'Các agent chạy Claude Code dưới dạng tiến trình cục bộ. Những hoạt động của chúng — tin nhắn, công cụ, diff và bảng điều khiển — được hiển thị tại đây.';
 
   @override
   String get agentUntitled => 'Trò chuyện mới';
@@ -2020,7 +2018,7 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get sidebarDeleteAgentsTitle => 'Xóa đại lý?';
+  String get sidebarDeleteAgentsTitle => 'Xóa agent?';
 
   @override
   String sidebarDeleteAgentsMessage(int count) {
@@ -2042,13 +2040,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get sidebarSearchAgents => 'Tìm agent…';
 
   @override
-  String get ideChatHistory => 'Lịch sử đại lý';
+  String get ideChatHistory => 'Lịch sử agent';
 
   @override
-  String get ideChatShowArchived => 'Hiển thị các đại lý lưu trữ';
+  String get ideChatShowArchived => 'Hiển thị các agent lưu trữ';
 
   @override
-  String get ideChatNoAgents => 'Không có đại lý trong dự án này';
+  String get ideChatNoAgents => 'Không có agent trong dự án này';
 
   @override
   String sidebarNewAgentIn(String project) {
@@ -2147,7 +2145,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get forkUnavailable =>
-      'Cuộc trò chuyện này không thể được phân nhánh: trước tiên nó cần có một tin nhắn và người đại diện của nó phải hỗ trợ việc phân nhánh.';
+      'Cuộc trò chuyện này không thể được phân nhánh: trước tiên nó cần có một tin nhắn và agent của nó phải hỗ trợ việc phân nhánh.';
 
   @override
   String get sidebarFoldAsides => 'Ẩn các cuộc trò chuyện /btw';
@@ -2285,7 +2283,7 @@ class AppLocalizationsVi extends AppLocalizations {
       'Không phải hình ảnh PNG, JPG, WebP, GIF hoặc SVG';
 
   @override
-  String get iconUploadUnreadable => 'Không thể đọc được tập tin';
+  String get iconUploadUnreadable => 'Không thể đọc được tệp';
 
   @override
   String get emojiGroupSmileys => 'Mặt cười & Cảm xúc';
@@ -2347,7 +2345,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get workspaceTerminalApp => 'Phần cuối';
 
   @override
-  String get workspaceWindowsTerminal => 'Thiết bị đầu cuối Windows';
+  String get workspaceWindowsTerminal => 'Terminal Windows';
 
   @override
   String get workspaceKeepOnTopUnavailable =>
@@ -2428,7 +2426,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String chatAgentMessageSemantics(String agent) {
-    return 'Tin nhắn từ đại lý phụ $agent';
+    return 'Tin nhắn từ agent phụ $agent';
   }
 
   @override
@@ -2444,7 +2442,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get chatStop => 'Dừng lại';
 
   @override
-  String get chatKeepRunningHint => 'Giữ nó chạy và để đại lý tiếp tục';
+  String get chatKeepRunningHint => 'Giữ nó chạy và để agent tiếp tục';
 
   @override
   String get chatBackground => 'Lý lịch';
@@ -2501,7 +2499,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get toolFetched => 'Đã tìm nạp';
 
   @override
-  String get toolAgent => 'Đại lý';
+  String get toolAgent => 'Agent';
 
   @override
   String get toolUpdatingTodos => 'Cập nhật việc cần làm';
@@ -2937,7 +2935,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String activityMusingsRead(String name) {
-    return 'Lá qua $name\nLàm quen với $name\nKéo chủ đề trong $name\nĐọc giữa các dòng của $name';
+    return 'Đang xem $name\nĐang tìm hiểu $name\nĐang lần theo thông tin trong $name\nĐang đọc kỹ $name';
   }
 
   @override
@@ -3106,10 +3104,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get stripUndo => 'Hoàn tác';
 
   @override
-  String get agentKeepFile => 'Giữ tập tin';
+  String get agentKeepFile => 'Giữ tệp';
 
   @override
-  String get agentUndoFile => 'Hoàn tác tập tin';
+  String get agentUndoFile => 'Hoàn tác tệp';
 
   @override
   String get agentPreviousChange => 'Thay đổi trước đó';
@@ -3131,14 +3129,14 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get stripChangeConflict =>
-      'Lại bị thay đổi kể từ khi người đại diện rời đi, vì vậy Hoàn tác không thể lấy tiền lẻ của người đại diện. Hoàn tác nó bằng tay, sau đó giữ nó.';
+      'Tệp đã thay đổi thêm sau khi agent chỉnh sửa, nên thao tác Hoàn tác không thể tự khôi phục thay đổi của agent. Hãy hoàn tác thủ công rồi giữ kết quả.';
 
   @override
   String get stripChangeUntracked =>
-      'Những gì trước đây không được biết (quá lớn để giữ lại, hoặc người đại diện không cho biết): nó có thể được giữ lại, không thể hoàn tác.';
+      'Không xác định được nội dung trước khi thay đổi (vì quá lớn để lưu hoặc agent không cung cấp). Bạn có thể giữ nguyên, nhưng không thể tự động hoàn tác.';
 
   @override
-  String get stripChangesDiff => 'Thay đổi đại lý';
+  String get stripChangesDiff => 'Thay đổi agent';
 
   @override
   String get usageUsed => 'Đã sử dụng';
@@ -3259,7 +3257,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get interactionDenyHint =>
-      'Thay vào đó, hãy cho đại lý biết phải làm gì';
+      'Thay vào đó, hãy cho agent biết phải làm gì';
 
   @override
   String interactionStepOf(int step, int total) {
@@ -3279,7 +3277,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get interactionBack => 'Mặt sau';
 
   @override
-  String get interactionCollapse => 'Sụp đổ';
+  String get interactionCollapse => 'Thu gọn';
 
   @override
   String get interactionExpand => 'Mở rộng';
@@ -3396,7 +3394,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get queuedEdit => 'Quay lại để chỉnh sửa';
 
   @override
-  String get queuedSendNow => 'Dừng đại lý và gửi cái này ngay bây giờ';
+  String get queuedSendNow => 'Dừng agent và gửi cái này ngay bây giờ';
 
   @override
   String get queuedRemove => 'Xóa khỏi hàng đợi';
@@ -3406,7 +3404,7 @@ class AppLocalizationsVi extends AppLocalizations {
       'Bấm để đưa nó vào đầu vào, bấm đúp để gửi nó';
 
   @override
-  String get stopConfirmMessage => 'Dừng đại lý?';
+  String get stopConfirmMessage => 'Dừng agent?';
 
   @override
   String stopConfirmDetail(int count) {
@@ -3477,7 +3475,7 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get markdownPasteLargeTitle => 'Sao chép một tập tin lớn?';
+  String get markdownPasteLargeTitle => 'Sao chép một tệp lớn?';
 
   @override
   String markdownPasteLargeMessage(String name, String size) {
@@ -3661,7 +3659,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get explorerDeleteFilesUnsaved =>
-      'Bạn đang xóa các tập tin có những thay đổi chưa được lưu. Bạn có muốn tiếp tục không?';
+      'Bạn đang xóa các tệp có những thay đổi chưa được lưu. Bạn có muốn tiếp tục không?';
 
   @override
   String explorerConfirmDeleteMultiple(int count) {
@@ -3705,12 +3703,12 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String explorerUploading(int done, int total) {
-    return 'Đang tải tập tin lên... $done/$total';
+    return 'Đang tải tệp lên... $done/$total';
   }
 
   @override
   String explorerDownloading(int done, int total) {
-    return 'Đang tải tập tin... $done/$total';
+    return 'Đang tải tệp... $done/$total';
   }
 
   @override
@@ -3725,7 +3723,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get explorerDownloadReplace => 'Thay thế';
 
   @override
-  String get explorerPreparingTransfer => 'Đang chuẩn bị tập tin...';
+  String get explorerPreparingTransfer => 'Đang chuẩn bị tệp...';
 
   @override
   String composerCopyToHostFailed(String error) {
@@ -3816,18 +3814,18 @@ class AppLocalizationsVi extends AppLocalizations {
   String get generalSettingsTitle => 'Chung';
 
   @override
-  String get generalSettingsCommitAttribution => 'Cam kết ghi công';
+  String get generalSettingsCommitAttribution => 'Ghi nhận tác giả commit';
 
   @override
   String get generalSettingsCommitAttributionDescription =>
-      'Ai cam kết và kéo yêu cầu một đại lý viết tín dụng. Áp dụng cho các đại lý bắt đầu sau khi thay đổi; Mã Claude chỉ dành cho bây giờ.';
+      'Chọn tác giả được ghi trên commit và pull request do agent tạo. Chỉ áp dụng cho agent khởi chạy sau khi thay đổi; hiện mới hỗ trợ Claude Code.';
 
   @override
   String get generalSettingsClaudeCore => 'Bộ lõi';
 
   @override
   String get generalSettingsClaudeCoreDescription =>
-      'Claude Code CLI: Chương trình riêng của Anthropic, với thao tác đăng nhập và thiết lập của máy này; chọn nó để sử dụng đăng ký Claude. Tích hợp sẵn: đi kèm với BaoCode và chỉ sử dụng các kiểu máy được thêm vào Cài đặt → Kiểu máy. Theo mặc định, CLI nơi máy này có Mã Claude, nếu không thì có lõi tích hợp sẵn; CLI, được chọn ở nơi không có, sẽ được tải xuống cho bạn. Những thay đổi áp dụng cho các phiên mới.';
+      'Claude Code CLI: Chương trình riêng của Anthropic, với thao tác đăng nhập và thiết lập của máy này; chọn nó để sử dụng đăng ký Claude. Tích hợp sẵn: đi kèm với BaoCode và chỉ sử dụng các kiểu máy được thêm vào Cài đặt → Kiểu máy. Theo mặc định, CLI nơi máy này có Claude Code, nếu không thì có lõi tích hợp sẵn; CLI, được chọn ở nơi không có, sẽ được tải xuống cho bạn. Những thay đổi áp dụng cho các phiên mới.';
 
   @override
   String get generalSettingsClaudeCoreBuiltin => 'Tích hợp sẵn';
@@ -3841,7 +3839,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get generalSettingsQueuedMessagesDescription =>
-      'Khi một tin nhắn được gửi trong khi đại lý vẫn đang làm việc được tiếp nhận. Áp dụng cho các tin nhắn được gửi sau khi thay đổi; Mã Claude chỉ dành cho bây giờ.';
+      'Khi một tin nhắn được gửi trong khi agent vẫn đang làm việc được tiếp nhận. Áp dụng cho các tin nhắn được gửi sau khi thay đổi; Claude Code chỉ dành cho bây giờ.';
 
   @override
   String get generalSettingsQueuedAfterTurn => 'Sau tác vụ hiện tại';
@@ -3854,11 +3852,11 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get generalSettingsPromptSuggestionsDescription =>
-      'Sau mỗi lượt, hai hoặc ba thứ bạn có thể gửi tiếp theo, qua nhà soạn nhạc: nhấp vào một thứ để nhập vào đầu vào và chỉnh sửa nó, nhấp đúp để gửi nguyên bản; Tab trong đầu vào trống sẽ chiếm vị trí đầu tiên. Người đại diện viết chúng vào cuối thư trả lời mà không yêu cầu thêm. Áp dụng từ tin nhắn tiếp theo.';
+      'Sau mỗi lượt, hai hoặc ba gợi ý tin nhắn tiếp theo xuất hiện phía trên ô soạn: nhấp để đưa vào ô nhập và chỉnh sửa, nhấp đúp để gửi ngay; nhấn Tab khi ô nhập trống để chọn gợi ý đầu tiên. Agent tạo gợi ý ở cuối phản hồi mà không phát sinh yêu cầu bổ sung. Áp dụng từ tin nhắn tiếp theo.';
 
   @override
   String generalSettingsCommitAttributionLabel(String name) {
-    return 'Cam kết ghi công: $name';
+    return 'Ghi nhận tác giả commit: $name';
   }
 
   @override
@@ -3866,14 +3864,14 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get generalSettingsAttributionAgentDetail =>
-      'Của riêng đại lý, ví dụ: Claude Code hoặc thuộc tính được đặt trong ~/.claude/settings.json của bạn.';
+      'Của riêng agent, ví dụ: Claude Code hoặc thuộc tính được đặt trong ~/.claude/settings.json của bạn.';
 
   @override
   String get generalSettingsAttributionNone => 'Không có';
 
   @override
   String get generalSettingsAttributionNoneDetail =>
-      'Không có gì được thêm vào các yêu cầu cam kết hoặc kéo.';
+      'Không thêm thông tin tác giả vào commit hoặc pull request.';
 
   @override
   String get settingsSectionNotifications => 'Thông báo';
@@ -3882,14 +3880,14 @@ class AppLocalizationsVi extends AppLocalizations {
   String get notificationsSettingsTitle => 'Thông báo';
 
   @override
-  String get notificationsEnabled => 'Thông báo cho tôi khi đại lý cần tôi';
+  String get notificationsEnabled => 'Thông báo cho tôi khi agent cần tôi';
 
   @override
   String get notificationsEnabledDescription =>
       'Thông báo của hệ thống và âm thanh khi nhân viên hỏi bạn điều gì đó hoặc kết thúc. Biểu tượng của ứng dụng đếm số đặc vụ đang đợi bạn hoặc chưa thấy.';
 
   @override
-  String get notificationsEvents => 'Thông báo khi có đại lý';
+  String get notificationsEvents => 'Thông báo khi có agent';
 
   @override
   String get notificationsEventNeedsInput => 'Cần ý kiến ​​đóng góp của bạn';
@@ -3910,7 +3908,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get notificationsWhenDescription =>
-      'Có thông báo về đại lý bạn đang xem hay không, cửa sổ phía trước.';
+      'Có thông báo về agent bạn đang xem hay không, cửa sổ phía trước.';
 
   @override
   String get notificationsWhenUnfocused => 'Khi tôi không nhìn vào nó';
@@ -3939,7 +3937,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get notificationsSoundNone => 'Không có';
 
   @override
-  String get notificationsSoundChoose => 'Chọn một tập tin…';
+  String get notificationsSoundChoose => 'Chọn một tệp…';
 
   @override
   String notificationsSoundLabel(String name) {
@@ -4026,7 +4024,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String fileErrorConflict(String path) {
-    return 'Tập tin đã thay đổi trên đĩa. Mở lại trước khi lưu: $path';
+    return 'tệp đã thay đổi trên đĩa. Mở lại trước khi lưu: $path';
   }
 
   @override
@@ -4336,19 +4334,19 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitChangeTypeChanged => 'Loại đã thay đổi';
 
   @override
-  String get scmTitle => 'Kiểm soát nguồn';
+  String get scmTitle => 'quản lý mã nguồn';
 
   @override
   String get scmNoProviders =>
-      'Không có nhà cung cấp kiểm soát nguồn nào được đăng ký.';
+      'Không có nhà cung cấp quản lý mã nguồn nào được đăng ký.';
 
   @override
   String get scmInstallGit =>
-      'Cài đặt Git, một hệ thống kiểm soát nguồn phổ biến, để theo dõi các thay đổi mã và cộng tác với những người khác.';
+      'Cài đặt Git, một hệ thống quản lý mã nguồn phổ biến, để theo dõi các thay đổi mã và cộng tác với những người khác.';
 
   @override
   String get scmNoRepository =>
-      'Thư mục hiện đang mở không có kho lưu trữ Git. Bạn có thể khởi tạo một kho lưu trữ sẽ kích hoạt các tính năng kiểm soát nguồn do Git cung cấp.';
+      'Thư mục hiện đang mở không có kho lưu trữ Git. Bạn có thể khởi tạo một kho lưu trữ sẽ kích hoạt các tính năng quản lý mã nguồn do Git cung cấp.';
 
   @override
   String get scmInitializeRepository => 'Khởi tạo kho lưu trữ';
@@ -4375,37 +4373,37 @@ class AppLocalizationsVi extends AppLocalizations {
   String get scmGraph => 'đồ thị';
 
   @override
-  String get scmCommit => 'Làm';
+  String get scmCommit => 'Commit';
 
   @override
-  String get scmCommitChanges => 'Cam kết thay đổi';
+  String get scmCommitChanges => 'Commit thay đổi';
 
   @override
-  String get scmCommitAmend => 'Cam kết (Sửa đổi)';
+  String get scmCommitAmend => 'Commit (sửa commit trước)';
 
   @override
-  String get scmCommitStaged => 'Cam kết được dàn dựng';
+  String get scmCommitStaged => 'Commit các thay đổi đã stage';
 
   @override
-  String get scmCommitAll => 'Cam kết tất cả';
+  String get scmCommitAll => 'commit tất cả';
 
   @override
-  String get scmCommitStagedAmend => 'Cam kết đã được dàn dựng (Sửa đổi)';
+  String get scmCommitStagedAmend => 'commit đã đã stage (Sửa đổi)';
 
   @override
-  String get scmCommitAllAmend => 'Cam kết tất cả (Sửa đổi)';
+  String get scmCommitAllAmend => 'commit tất cả (Sửa đổi)';
 
   @override
-  String get scmUndoLastCommit => 'Hoàn tác cam kết cuối cùng';
+  String get scmUndoLastCommit => 'Hoàn tác commit cuối cùng';
 
   @override
-  String get scmGraphBranches => 'Chi nhánh được hiển thị';
+  String get scmGraphBranches => 'Các nhánh hiển thị';
 
   @override
-  String get scmGraphCurrentBranch => 'Chi nhánh hiện tại';
+  String get scmGraphCurrentBranch => 'Nhánh hiện tại';
 
   @override
-  String get scmGraphAllBranches => 'Tất cả các chi nhánh';
+  String get scmGraphAllBranches => 'Tất cả nhánh';
 
   @override
   String get scmGoToCurrent => 'Đi tới mục lịch sử hiện tại';
@@ -4462,39 +4460,39 @@ class AppLocalizationsVi extends AppLocalizations {
   String get scmAddToGitignore => 'Thêm vào .gitignore';
 
   @override
-  String get scmInput => 'Đầu vào kiểm soát nguồn';
+  String get scmInput => 'Đầu vào quản lý mã nguồn';
 
   @override
   String scmMessagePlaceholder(String keybinding) {
-    return 'Tin nhắn ($keybinding để cam kết)';
+    return 'Tin nhắn ($keybinding để commit)';
   }
 
   @override
   String scmMessagePlaceholderBranch(String keybinding, String branch) {
-    return 'Thông báo ($keybinding để cam kết về \"$branch\")';
+    return 'Thông báo ($keybinding để commit về \"$branch\")';
   }
 
   @override
-  String get scmGenerateCommitMessage => 'Tạo thông báo cam kết';
+  String get scmGenerateCommitMessage => 'Tạo thông báo commit';
 
   @override
-  String get scmCancelGenerateCommitMessage => 'Hủy tạo thông báo cam kết';
+  String get scmCancelGenerateCommitMessage => 'Hủy tạo thông báo commit';
 
   @override
   String get scmNoChangesToGenerate =>
-      'Không có thay đổi nào để tạo thông báo cam kết.';
+      'Không có thay đổi nào để tạo thông báo commit.';
 
   @override
-  String get scmPublishBranch => 'Chi nhánh xuất bản';
+  String get scmPublishBranch => 'Đẩy nhánh lên remote';
 
   @override
   String scmPublishBranchNamed(String branch) {
-    return 'Xuất bản chi nhánh \"$branch\"';
+    return 'Đẩy nhánh “$branch” lên remote';
   }
 
   @override
   String scmPublishingBranchNamed(String branch) {
-    return 'Chi nhánh xuất bản \"$branch\"...';
+    return 'Đang đẩy nhánh “$branch” lên remote...';
   }
 
   @override
@@ -4513,44 +4511,43 @@ class AppLocalizationsVi extends AppLocalizations {
   String get scmFetchFromAllRemotes => 'Tìm nạp từ tất cả các điều khiển từ xa';
 
   @override
-  String get scmPull => 'Sự lôi kéo';
+  String get scmPull => 'Pull';
 
   @override
-  String get scmPush => 'Xô';
+  String get scmPush => 'Push';
 
   @override
   String scmPullCommits(int count, String upstream) {
-    return 'Kéo các cam kết $count từ $upstream';
+    return 'Kéo các commit $count từ $upstream';
   }
 
   @override
   String scmPushCommits(int count, String upstream) {
-    return 'Push $count cam kết $upstream';
+    return 'Push $count commit $upstream';
   }
 
   @override
   String scmPullPushCommits(int behind, int ahead, String upstream) {
-    return 'Kéo $behind và đẩy $ahead cam kết giữa $upstream';
+    return 'Kéo $behind và đẩy $ahead commit giữa $upstream';
   }
 
   @override
   String scmConfirmSync(String upstream) {
-    return 'Hành động này sẽ kéo và đẩy các cam kết từ và tới \"$upstream\".';
+    return 'Hành động này sẽ kéo và đẩy các commit từ và tới \"$upstream\".';
   }
 
   @override
   String get scmDontShowAgain => 'Được rồi, đừng hiển thị nữa';
 
   @override
-  String get scmNoRemotes =>
-      'Kho lưu trữ của bạn không có điều khiển từ xa nào được định cấu hình để xuất bản lên.';
+  String get scmNoRemotes => 'Kho mã nguồn chưa cấu hình remote để đẩy lên.';
 
   @override
-  String get scmProvideMessage => 'Vui lòng cung cấp thông báo cam kết';
+  String get scmProvideMessage => 'Vui lòng cung cấp thông báo commit';
 
   @override
   String get scmNoStagedChanges =>
-      'Không có thay đổi theo giai đoạn nào để cam kết.\n\nBạn có muốn thực hiện tất cả các thay đổi của mình và cam kết trực tiếp không?';
+      'Không có thay đổi theo giai đoạn nào để commit.\n\nBạn có muốn thực hiện tất cả các thay đổi của mình và commit trực tiếp không?';
 
   @override
   String get scmAlways => 'Luôn luôn';
@@ -4559,29 +4556,29 @@ class AppLocalizationsVi extends AppLocalizations {
   String get scmNever => 'Không bao giờ';
 
   @override
-  String get scmNoChangesToCommit => 'Không có thay đổi nào để cam kết.';
+  String get scmNoChangesToCommit => 'Không có thay đổi nào để commit.';
 
   @override
-  String get scmCreateEmptyCommit => 'Tạo cam kết trống';
+  String get scmCreateEmptyCommit => 'Tạo commit trống';
 
   @override
   String get scmCantUndo =>
-      'Không thể hoàn tác vì HEAD không trỏ đến bất kỳ cam kết nào.';
+      'Không thể hoàn tác vì HEAD không trỏ đến bất kỳ commit nào.';
 
   @override
   String get scmConfirmUndoMerge =>
-      'Cam kết cuối cùng là cam kết hợp nhất. Bạn có chắc chắn muốn hoàn tác nó không?';
+      'commit cuối cùng là commit hợp nhất. Bạn có chắc chắn muốn hoàn tác nó không?';
 
   @override
-  String get scmUndoMergeCommit => 'Hoàn tác cam kết hợp nhất';
+  String get scmUndoMergeCommit => 'Hoàn tác commit hợp nhất';
 
   @override
   String get scmIrreversibleFile =>
-      'Đây là điều KHÔNG THỂ ĐẢO NGƯỢC!\nTập tin này sẽ MẤT MÃI nếu bạn tiếp tục.';
+      'Đây là điều KHÔNG THỂ ĐẢO NGƯỢC!\ntệp này sẽ MẤT MÃI nếu bạn tiếp tục.';
 
   @override
   String get scmIrreversibleFiles =>
-      'Đây là điều KHÔNG THỂ ĐẢO NGƯỢC!\nNhững tập tin này sẽ bị MẤT MÃI MÃI nếu bạn tiếp tục.';
+      'Đây là điều KHÔNG THỂ ĐẢO NGƯỢC!\nNhững tệp này sẽ bị MẤT MÃI MÃI nếu bạn tiếp tục.';
 
   @override
   String get scmIrreversibleWorkingSet =>
@@ -4602,7 +4599,7 @@ class AppLocalizationsVi extends AppLocalizations {
       'Bạn có thể khôi phục các tệp này từ Thùng rác.';
 
   @override
-  String get scmDeleteFile => 'Xóa tập tin';
+  String get scmDeleteFile => 'Xóa tệp';
 
   @override
   String scmDeleteAllFiles(int count) {
@@ -4630,7 +4627,7 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get scmRestoreFile => 'Khôi phục tập tin';
+  String get scmRestoreFile => 'Khôi phục tệp';
 
   @override
   String scmRestoreAllFiles(int count) {
@@ -4638,7 +4635,7 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get scmDiscardFile => 'Hủy tập tin';
+  String get scmDiscardFile => 'Hủy tệp';
 
   @override
   String scmDiscardAllFiles(int count) {
@@ -4657,10 +4654,10 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get scmCopyCommitHash => 'Sao chép hàm băm cam kết';
+  String get scmCopyCommitHash => 'Sao chép hàm băm commit';
 
   @override
-  String get scmCopyCommitMessage => 'Sao chép tin nhắn cam kết';
+  String get scmCopyCommitMessage => 'Sao chép tin nhắn commit';
 
   @override
   String get scmIncomingChanges => 'Những thay đổi sắp tới';
@@ -4697,14 +4694,14 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get gitCheckoutBranchTag => 'Chi nhánh/Thẻ thanh toán...';
+  String get gitCheckoutBranchTag => 'Checkout nhánh/tag...';
 
   @override
-  String get gitSelectBranchOrTag => 'Chọn chi nhánh hoặc thẻ để thanh toán';
+  String get gitSelectBranchOrTag => 'Chọn nhánh hoặc tag để checkout';
 
   @override
   String get gitSelectBranchDetached =>
-      'Chọn chi nhánh để thanh toán ở chế độ tách rời';
+      'Chọn nhánh để checkout ở chế độ detached';
 
   @override
   String get gitCreateBranch => 'Tạo chi nhánh mới...';
@@ -4713,13 +4710,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitCreateBranchFrom => 'Tạo chi nhánh mới từ...';
 
   @override
-  String get gitCheckoutDetached => 'Thanh toán đã được tách ra...';
+  String get gitCheckoutDetached => 'Checkout ở chế độ detached...';
 
   @override
-  String get gitBranches => 'chi nhánh';
+  String get gitBranches => 'nhánh';
 
   @override
-  String get gitRemoteBranches => 'chi nhánh xa';
+  String get gitRemoteBranches => 'nhánh xa';
 
   @override
   String get gitTags => 'thẻ';
@@ -4754,7 +4751,7 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get timelineCopyCommitId => 'Sao chép ID cam kết';
+  String get timelineCopyCommitId => 'Sao chép ID commit';
 
   @override
   String get timelineNoEditor =>
@@ -4762,7 +4759,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get timelineNotConfigured =>
-      'Không có thông tin dòng thời gian được cung cấp. Kiểm soát nguồn chưa được định cấu hình.';
+      'Không có thông tin dòng thời gian được cung cấp. quản lý mã nguồn chưa được định cấu hình.';
 
   @override
   String timelineLoading(String name) {
@@ -4843,10 +4840,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get searchToggleDetails => 'Chuyển đổi chi tiết tìm kiếm';
 
   @override
-  String get searchFilesToInclude => 'tập tin để bao gồm';
+  String get searchFilesToInclude => 'tệp để bao gồm';
 
   @override
-  String get searchFilesToExclude => 'tập tin cần loại trừ';
+  String get searchFilesToExclude => 'tệp cần loại trừ';
 
   @override
   String get searchIncludeExample => 'ví dụ. *.ts, src/**/bao gồm';
@@ -5158,14 +5155,14 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get langNoSelectionFormatter =>
-      'Không có định dạng cho các lựa chọn trong tập tin này.';
+      'Không có định dạng cho các lựa chọn trong tệp này.';
 
   @override
-  String get langNoFormatter => 'Không có định dạng cho tập tin này.';
+  String get langNoFormatter => 'Không có định dạng cho tệp này.';
 
   @override
   String langNoFormatterInstall(String id, String language) {
-    return 'Không có định dạng cho tập tin này. Cài đặt máy chủ ngôn ngữ \'$id\' để định dạng tệp $language.';
+    return 'Không có định dạng cho tệp này. Cài đặt máy chủ ngôn ngữ \'$id\' để định dạng tệp $language.';
   }
 
   @override
@@ -5235,7 +5232,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get panelClose => 'Đóng bảng điều khiển';
 
   @override
-  String get panelTerminalUnavailable => 'Thiết bị đầu cuối không có sẵn.';
+  String get panelTerminalUnavailable => 'Terminal không có sẵn.';
 
   @override
   String get problemsNone =>
@@ -5276,13 +5273,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get termRename => 'Đổi tên...';
 
   @override
-  String get termKillTerminal => 'Giết thiết bị đầu cuối';
+  String get termKillTerminal => 'Đóng Terminal';
 
   @override
-  String get termKillOtherTerminals => 'Tiêu diệt các thiết bị đầu cuối khác';
+  String get termKillOtherTerminals => 'Đóng các Terminal khác';
 
   @override
-  String get termKillAllTerminals => 'Tiêu diệt tất cả các thiết bị đầu cuối';
+  String get termKillAllTerminals => 'Đóng tất cả Terminal';
 
   @override
   String get termStopAllTasks => 'Dừng tất cả các tác vụ đang chạy';
@@ -5291,7 +5288,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get termRunInNewTerminal => 'Chạy trong Terminal mới';
 
   @override
-  String get termNoTerminals => 'Không có thiết bị đầu cuối';
+  String get termNoTerminals => 'Không có Terminal';
 
   @override
   String get termNewTerminal => 'Nhà ga mới';
@@ -5313,12 +5310,11 @@ class AppLocalizationsVi extends AppLocalizations {
   String get termSelectDefaultProfile => 'Chọn hồ sơ mặc định';
 
   @override
-  String get termSelectProfileToCreate =>
-      'Chọn cấu hình thiết bị đầu cuối để tạo';
+  String get termSelectProfileToCreate => 'Chọn cấu hình Terminal để tạo';
 
   @override
   String get termChooseDefaultProfile =>
-      'Chọn cấu hình thiết bị đầu cuối mặc định của bạn';
+      'Chọn cấu hình Terminal mặc định của bạn';
 
   @override
   String get termProfilesGroup => 'hồ sơ';
@@ -5327,15 +5323,14 @@ class AppLocalizationsVi extends AppLocalizations {
   String get termProfilesDetected => 'phát hiện';
 
   @override
-  String get cmdTerminalNewWithProfile =>
-      'Tạo thiết bị đầu cuối mới (Có hồ sơ)';
+  String get cmdTerminalNewWithProfile => 'Tạo Terminal mới (Có hồ sơ)';
 
   @override
-  String get termKill => 'Giết';
+  String get termKill => 'Đóng';
 
   @override
   String termKillKeys(String keybinding) {
-    return 'Giết ($keybinding)';
+    return 'Đóng ($keybinding)';
   }
 
   @override
@@ -5344,7 +5339,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get termRenameLabel =>
-      'Nhập tên thiết bị đầu cuối. Nhấn Enter để xác nhận hoặc Escape để hủy.';
+      'Nhập tên Terminal. Nhấn Enter để xác nhận hoặc Escape để hủy.';
 
   @override
   String get termRerunCommand => 'Chạy lại lệnh';
@@ -5356,14 +5351,14 @@ class AppLocalizationsVi extends AppLocalizations {
   String get termCopyOutput => 'Sao chép đầu ra';
 
   @override
-  String get termClear => 'Thông thoáng';
+  String get termClear => 'Xóa';
 
   @override
   String get termPasteAsOneLine => 'Dán dưới dạng một dòng';
 
   @override
   String termPasteConfirm(int count) {
-    return 'Bạn có chắc chắn muốn dán dòng văn bản $count vào thiết bị đầu cuối không?';
+    return 'Bạn có chắc chắn muốn dán dòng văn bản $count vào Terminal không?';
   }
 
   @override
@@ -5424,7 +5419,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get wbExplorer => 'Nhà thám hiểm';
 
   @override
-  String get wbSearchFiles => 'Tìm kiếm tập tin';
+  String get wbSearchFiles => 'Tìm kiếm tệp';
 
   @override
   String wbPendingChanges(int count) {
@@ -5553,7 +5548,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get workspaceDesktopOnly =>
-      'Đại lý chạy trong ứng dụng máy tính để bàn';
+      'Agent chạy trong ứng dụng máy tính để bàn';
 
   @override
   String get workspaceDesktopOnlyDetail =>
@@ -5564,7 +5559,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get workspaceOpenProjectFolderDetail =>
-      'Các phiên Mã Claude của nó hiển thị trên thanh bên; đại lý mới chạy trong đó.';
+      'Các phiên Claude Code của nó hiển thị trên thanh bên; agent mới chạy trong đó.';
 
   @override
   String settingsFileError(String file, String error) {
@@ -5782,7 +5777,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get dataDirOtherFiles =>
-      'Thư mục chứa các tập tin khác: chúng ở lại, bên cạnh chính BaoCode.';
+      'Thư mục chứa các tệp khác: chúng ở lại, bên cạnh chính BaoCode.';
 
   @override
   String get dataDirUseItsData => 'Sử dụng dữ liệu của nó';
@@ -5825,7 +5820,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get quitConfirmDetail =>
-      'Các đại lý và thiết bị đầu cuối đang chạy sẽ bị dừng lại.';
+      'Các agent và Terminal đang chạy sẽ bị dừng lại.';
 
   @override
   String get quitConfirmQuit => 'Từ bỏ';
@@ -5859,7 +5854,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get dataDirDescription =>
-      'Nơi BaoCode lưu giữ các cài đặt, tổ hợp phím, máy chủ ngôn ngữ và trạng thái riêng của nó. Các chương trình khác cũng giữ các tập tin ở đó (bộ nhớ đệm của chế độ xem web); BaoCode không bao giờ di chuyển hoặc loại bỏ những thứ đó.';
+      'Nơi BaoCode lưu giữ các cài đặt, tổ hợp phím, máy chủ ngôn ngữ và trạng thái riêng của nó. Các chương trình khác cũng giữ các tệp ở đó (bộ nhớ đệm của chế độ xem web); BaoCode không bao giờ di chuyển hoặc loại bỏ những thứ đó.';
 
   @override
   String get dataDirCurrentFolder => 'Thư mục hiện tại';
@@ -5989,7 +5984,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get impReplaceDetail =>
-      'Sao chép tập tin như nó vốn có, bình luận cũng vậy. Của bạn được giữ dưới dạng keybinds.json.bak.';
+      'Sao chép tệp như nó vốn có, bình luận cũng vậy. Của bạn được giữ dưới dạng keybinds.json.bak.';
 
   @override
   String impAlsoUse(String name) {
@@ -6075,7 +6070,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get explorerOpenFolder => 'Mở thư mục';
 
   @override
-  String get ideSearchOpenFiles => 'Tìm kiếm tập tin đang mở';
+  String get ideSearchOpenFiles => 'Tìm kiếm tệp đang mở';
 
   @override
   String get ideWelcomeRecent => 'Gần đây';
@@ -6089,31 +6084,31 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get ideOpenRecentPlaceholder => 'Chọn thư mục hoặc tập tin để mở';
+  String get ideOpenRecentPlaceholder => 'Chọn thư mục hoặc tệp để mở';
 
   @override
   String get ideRecentFolders => 'thư mục';
 
   @override
-  String get ideRecentFiles => 'tập tin';
+  String get ideRecentFiles => 'tệp';
 
   @override
-  String get ideNoRecent => 'Không có thư mục hoặc tập tin nào được mở gần đây';
+  String get ideNoRecent => 'Không có thư mục hoặc tệp nào được mở gần đây';
 
   @override
   String get ideClearRecentConfirm =>
-      'Bạn có muốn xóa tất cả các tập tin và thư mục đã mở gần đây không?';
+      'Bạn có muốn xóa tất cả các tệp và thư mục đã mở gần đây không?';
 
   @override
   String get ideClearRecentDetail =>
       'Hành động này là không thể thay đổi được!';
 
   @override
-  String get ideClearRecent => 'Thông thoáng';
+  String get ideClearRecent => 'Xóa';
 
   @override
   String get ideChatNoFolder =>
-      'Mở một tập tin hoặc thư mục để trò chuyện với nhân viên về nó.';
+      'Mở một tệp hoặc thư mục để trò chuyện với nhân viên về nó.';
 
   @override
   String ideCannotOpen(String path, String error) {
@@ -6219,7 +6214,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get generalSettingsIde => 'Fast IDE';
 
   @override
-  String get explorerExcludeSetting => 'Các tập tin và thư mục ẩn';
+  String get explorerExcludeSetting => 'Các tệp và thư mục ẩn';
 
   @override
   String get explorerExcludeSettingDescription =>
@@ -6234,7 +6229,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get claudePathSettingDescription =>
-      'Trống: Mã Claude mới nhất trên máy này, được tải xuống nếu không có. Một đường dẫn: luôn là đường dẫn đó, ví dụ: một cái bạn đã xây dựng. (claudeCode.path)';
+      'Trống: Claude Code mới nhất trên máy này, được tải xuống nếu không có. Một đường dẫn: luôn là đường dẫn đó, ví dụ: một cái bạn đã xây dựng. (claudeCode.path)';
 
   @override
   String get claudePathSettingHint => 'Tự động';
@@ -6443,16 +6438,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get palettePlaceholder =>
-      'Tìm kiếm tác nhân, cuộc hội thoại, tập tin, hành động…';
+      'Tìm kiếm tác nhân, cuộc hội thoại, tệp, hành động…';
 
   @override
   String get paletteFilterAll => 'Tất cả';
 
   @override
-  String get paletteFilterAgents => 'Đại lý';
+  String get paletteFilterAgents => 'Agent';
 
   @override
-  String get paletteFilterFiles => 'Tập tin';
+  String get paletteFilterFiles => 'tệp';
 
   @override
   String get paletteFilterActions => 'hành động';
@@ -6461,7 +6456,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get paletteFilterSettings => 'Cài đặt';
 
   @override
-  String get paletteRecentAgents => 'Đại lý gần đây';
+  String get paletteRecentAgents => 'Agent gần đây';
 
   @override
   String get paletteRecentActions => 'Hành động gần đây';
@@ -6471,7 +6466,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String paletteFilesIn(String project) {
-    return 'Các tập tin trong $project';
+    return 'Các tệp trong $project';
   }
 
   @override
@@ -6481,7 +6476,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get paletteNoResults => 'Không có kết quả';
 
   @override
-  String get paletteNoProject => 'Mở một dự án để tìm kiếm các tập tin của nó';
+  String get paletteNoProject => 'Mở một dự án để tìm kiếm các tệp của nó';
 
   @override
   String get paletteTypeToSearch => 'Nhập để tìm kiếm';
@@ -6551,7 +6546,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get customizeUnsupported =>
-      'Tùy chỉnh Mã Claude cần có ứng dụng dành cho máy tính để bàn.';
+      'Tùy chỉnh Claude Code cần có ứng dụng dành cho máy tính để bàn.';
 
   @override
   String get customizeSave => 'Cứu';
@@ -6569,7 +6564,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get customizeEdit => 'Biên tập';
 
   @override
-  String get customizeReadOnly => 'Chỉ đọc: Mã Claude giữ chính tệp này.';
+  String get customizeReadOnly => 'Chỉ đọc: Claude Code giữ chính tệp này.';
 
   @override
   String get customizeEnabled => 'Đã bật';
@@ -6649,7 +6644,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get customizeEmptyPlugins =>
-      'Không có cài đặt nào. Cài đặt plugin bằng /plugin trong Mã Claude.';
+      'Không có cài đặt nào. Cài đặt plugin bằng /plugin trong Claude Code.';
 
   @override
   String get customizeEmptyMemory =>
@@ -6806,7 +6801,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get modelsMagpieGatewayDescription =>
-      'Các mô hình, tài khoản và định tuyến được thiết lập trong Magpie và danh sách này tuân theo nó. Các nhóm định tuyến mới, mô hình hình ảnh và mô hình chim ác là cung cấp cho Mã Claude được bật khi chúng xuất hiện; đánh dấu vào bất kỳ cái nào khác bên dưới.';
+      'Các mô hình, tài khoản và định tuyến được thiết lập trong Magpie và danh sách này tuân theo nó. Các nhóm định tuyến mới, mô hình hình ảnh và mô hình chim ác là cung cấp cho Claude Code được bật khi chúng xuất hiện; đánh dấu vào bất kỳ cái nào khác bên dưới.';
 
   @override
   String get modelsMagpieRunning => 'Đang chạy';
@@ -7126,7 +7121,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get modelsBaseUrlAnthropicHint =>
-      'Không có /v1, vì ANTHOPIC_BASE_URL: Mã Claude thêm /v1/messages.';
+      'Không có /v1, vì ANTHOPIC_BASE_URL: Claude Code thêm /v1/messages.';
 
   @override
   String get modelsBaseUrlOpenAIHint =>
@@ -7375,7 +7370,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get modelsEnvDescription =>
-      'Một KEY=GIÁ TRỊ một dòng, được cấp cho Mã Claude sau các cài đặt ở trên.';
+      'Một KEY=GIÁ TRỊ một dòng, được cấp cho Claude Code sau các cài đặt ở trên.';
 
   @override
   String get modelsHeaders => 'Tiêu đề tùy chỉnh';
@@ -7588,7 +7583,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get modelsAuxiliaryDescription =>
-      'Được sử dụng cho công việc phụ trợ, chẳng hạn như tạo tiêu đề cuộc trò chuyện và thông báo cam kết. Tự động: mô hình của phiên (đối với thông báo cam kết, mặc định của phiên mới); thượng nguồn theo cấp Haiku của nó.';
+      'Được sử dụng cho công việc phụ trợ, chẳng hạn như tạo tiêu đề cuộc trò chuyện và thông báo commit. Tự động: mô hình của phiên (đối với thông báo commit, mặc định của phiên mới); thượng nguồn theo cấp Haiku của nó.';
 
   @override
   String get modelsAuxiliaryAuto => 'Tự động';
@@ -7750,7 +7745,7 @@ class AppLocalizationsVi extends AppLocalizations {
       count,
       locale: localeName,
       other: 'Tệp nhật ký $count',
-      one: '1 tập tin nhật ký',
+      one: '1 tệp nhật ký',
     );
     return '$_temp0 ($size) sẽ được tải lên.';
   }
@@ -8290,10 +8285,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get remoteFileHostPlaceholder =>
-      'Chọn một máy chủ để duyệt các tập tin của nó';
+      'Chọn một máy chủ để duyệt các tệp của nó';
 
   @override
-  String get remoteRecentFiles => 'Tập tin từ xa gần đây';
+  String get remoteRecentFiles => 'tệp từ xa gần đây';
 
   @override
   String remoteOpenFileOn(String host) {
@@ -8332,32 +8327,32 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String remoteStatusInstalling(String kind, String host, int percent) {
-    return '$kind: $host (cài đặt Mã Claude $percent%)';
+    return '$kind: $host (cài đặt Claude Code $percent%)';
   }
 
   @override
   String remoteStatusInstallingUnsized(String kind, String host) {
-    return '$kind: $host (cài đặt Mã Claude...)';
+    return '$kind: $host (cài đặt Claude Code...)';
   }
 
   @override
   String remoteInstallingClaude(String host) {
-    return 'Đang cài đặt Mã Claude trên $host…';
+    return 'Đang cài đặt Claude Code trên $host…';
   }
 
   @override
   String remoteInstallingClaudeProgress(String host, int percent) {
-    return 'Cài đặt mã Claude trên $host… $percent%';
+    return 'Cài đặt Claude Code trên $host… $percent%';
   }
 
   @override
   String localDownloadingClaude(int percent) {
-    return 'Đang tải xuống mã Claude… $percent%';
+    return 'Đang tải xuống Claude Code… $percent%';
   }
 
   @override
   String remoteUploadingClaude(String host, int percent) {
-    return 'Đang gửi mã Claude tới $host… $percent%';
+    return 'Đang gửi Claude Code tới $host… $percent%';
   }
 
   @override
@@ -8377,7 +8372,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String remoteStatusTooltipResuming(String host) {
-    return 'Kết nối với $host bị mất và được tạo lại: các thiết bị đầu cuối của nó và Mã Claude vẫn tiếp tục chạy ở đó trong khi đó. Bấm để kết nối lại ngay bây giờ';
+    return 'Kết nối với $host bị mất và được tạo lại: các Terminal của nó và Claude Code vẫn tiếp tục chạy ở đó trong khi đó. Bấm để kết nối lại ngay bây giờ';
   }
 
   @override
@@ -8394,9 +8389,8 @@ class AppLocalizationsVi extends AppLocalizations {
       count,
       locale: localeName,
       other:
-          'Các phiên và thiết bị đầu cuối $count trên máy chủ từ xa cũng sẽ kết thúc.',
-      one:
-          '1 phiên hoặc thiết bị đầu cuối trên máy chủ từ xa cũng sẽ kết thúc.',
+          'Các phiên và Terminal $count trên máy chủ từ xa cũng sẽ kết thúc.',
+      one: '1 phiên hoặc Terminal trên máy chủ từ xa cũng sẽ kết thúc.',
     );
     return '$_temp0';
   }
@@ -8463,7 +8457,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String tipShellCommandBody(String name) {
-    return 'Mở các thư mục trong BaoCode từ thiết bị đầu cuối: $name <path>.';
+    return 'Mở các thư mục trong BaoCode từ Terminal: $name <path>.';
   }
 
   @override
@@ -8475,7 +8469,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get tipColorThemeBody =>
-      'Chọn màu của cuộc trò chuyện, IDE và thiết bị đầu cuối.';
+      'Chọn màu của cuộc trò chuyện, IDE và Terminal.';
 
   @override
   String get cmdShowSetupGuide => 'Hiển thị hướng dẫn thiết lập';
@@ -8542,7 +8536,7 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get newChatAddFolderToDetail => 'Đại lý của nó cũng làm việc ở đó';
+  String get newChatAddFolderToDetail => 'Agent của nó cũng làm việc ở đó';
 
   @override
   String newChatProjectAddedFolders(String path, int count) {
@@ -8642,7 +8636,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get projectRelocateBusy =>
-      'Một đại lý của dự án này vẫn đang làm việc hoặc đang mở trong một cửa sổ riêng. Thay đổi vị trí của nó sau khi hoàn tất.';
+      'Một agent của dự án này vẫn đang làm việc hoặc đang mở trong một cửa sổ riêng. Thay đổi vị trí của nó sau khi hoàn tất.';
 
   @override
   String get projectRelocateFailed =>
@@ -8695,7 +8689,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String networkProxyLabel(String name) {
-    return 'Người đại diện: $name';
+    return 'Proxy: $name';
   }
 
   @override
@@ -9045,7 +9039,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get extsCapabilityUnsupportedDetail =>
-      'Nó không có chủ đề màu sắc hoặc biểu tượng tập tin: BaoCode chỉ sử dụng chủ đề từ tiện ích mở rộng.';
+      'Nó không có chủ đề màu sắc hoặc biểu tượng tệp: BaoCode chỉ sử dụng chủ đề từ tiện ích mở rộng.';
 
   @override
   String get extsFindingCode => 'Mã của nó không chạy.';
@@ -9114,7 +9108,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get sidebarRemoveHostMessage =>
-      'Các dự án của nó được đưa ra khỏi thanh bên. Cuộc trò chuyện của họ được lưu giữ và quay lại sau khi người tổ chức được thêm lại.';
+      'Các dự án của máy chủ này sẽ được xóa khỏi thanh bên. Các cuộc trò chuyện vẫn được giữ và sẽ xuất hiện lại khi máy chủ được thêm trở lại.';
 
   @override
   String get sidebarRemove => 'Di dời';
@@ -9124,7 +9118,7 @@ class AppLocalizationsVi extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Đại lý $count trên máy khác cần bạn',
+      other: 'Agent $count trên máy khác cần bạn',
       one: '1 nhân viên trên máy khác cần bạn',
     );
     return '$_temp0';
@@ -9690,7 +9684,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get composerPolishHint =>
-      'Nâng cao lời nhắc: mô hình phụ trợ giúp thông điệp trở thành lời nhắc rõ ràng, cụ thể hơn cho đại lý, điền vào những gì bạn còn mơ hồ; hình ảnh, tập tin, mã và liên kết vẫn giữ nguyên; Hoàn tác sẽ lấy lại nó';
+      'Nâng cao lời nhắc: mô hình phụ trợ giúp thông điệp trở thành lời nhắc rõ ràng, cụ thể hơn cho agent, điền vào những gì bạn còn mơ hồ; hình ảnh, tệp, mã và liên kết vẫn giữ nguyên; Hoàn tác sẽ lấy lại nó';
 
   @override
   String composerPolishFailed(String error) {
@@ -9790,7 +9784,7 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get stashAiClear => 'Thông thoáng';
+  String get stashAiClear => 'Xóa';
 
   @override
   String stashAiSearchFailed(String error) {
@@ -9924,7 +9918,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get stashDeleteDetail =>
-      'Hình ảnh và tập tin của họ đi cùng với họ. Điều này không thể hoàn tác được.';
+      'Hình ảnh và tệp của họ đi cùng với họ. Điều này không thể hoàn tác được.';
 
   @override
   String stashPicked(int count) {
@@ -9981,7 +9975,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get stashImplement => 'Triển khai trong BaoCode';
 
   @override
-  String get stashImplementHow => 'Đại lý nên làm việc như thế nào?';
+  String get stashImplementHow => 'Agent nên làm việc như thế nào?';
 
   @override
   String get stashImplementHowDetail =>
@@ -10068,7 +10062,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get stashHotkeyNone => 'Không có';
 
   @override
-  String get stashHotkeyClear => 'Thông thoáng';
+  String get stashHotkeyClear => 'Xóa';
 
   @override
   String stashHotkeySuggested(String hotkey) {
@@ -10147,7 +10141,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get branchBarSwitch => 'Chuyển nhánh';
 
   @override
-  String get branchBarSearch => 'Tìm kiếm chi nhánh';
+  String get branchBarSearch => 'Tìm kiếm nhánh';
 
   @override
   String get branchBarCreate => 'Tạo chi nhánh…';
@@ -10184,7 +10178,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get settingsAccountsKeywords =>
-      'GitHub GitLab vấn đề đăng nhập mã thông báo đăng nhập yêu cầu kéo yêu cầu hợp nhất';
+      'GitHub GitLab vấn đề đăng nhập mã thông báo đăng nhập pull request yêu cầu hợp nhất';
 
   @override
   String get accountsDescription =>
@@ -10262,7 +10256,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get accountsTokenGitHubScopes =>
-      'Mã thông báo cổ điển có phạm vi repo và đọc:người dùng hoặc mã thông báo chi tiết có quyền truy cập đọc và ghi đối với các vấn đề và yêu cầu kéo.';
+      'Mã thông báo cổ điển có phạm vi repo và đọc:người dùng hoặc mã thông báo chi tiết có quyền truy cập đọc và ghi đối với các vấn đề và pull request.';
 
   @override
   String get accountsTokenGitLabScopes =>
@@ -10274,7 +10268,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get accountsTokenGitCodeScopes =>
-      'Mã thông báo truy cập cá nhân có thể đọc thông tin người dùng của bạn cũng như đọc và ghi các kho lưu trữ, các vấn đề và yêu cầu kéo.';
+      'Mã thông báo truy cập cá nhân có thể đọc thông tin người dùng của bạn cũng như đọc và ghi các kho lưu trữ, các vấn đề và pull request.';
 
   @override
   String accountsTokenCreate(String host) {
@@ -10348,7 +10342,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get forgeChecksRunning => 'Kiểm tra đang chạy';
 
   @override
-  String get stashIssues => 'Sự cố và yêu cầu kéo';
+  String get stashIssues => 'Sự cố và pull request';
 
   @override
   String stashIssueClosedBanner(String tag) {
@@ -10458,7 +10452,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get stashImportNotALink =>
-      'Không phải vấn đề về GitHub, GitLab hoặc Gitee hoặc liên kết yêu cầu kéo.';
+      'Không phải vấn đề về GitHub, GitLab hoặc Gitee hoặc liên kết pull request.';
 
   @override
   String stashImportSignIn(String forge) {
@@ -10516,13 +10510,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get stashWelcomeLead =>
-      'Hãy ghi lại mọi thứ ngay khi chúng đến với bạn, giao chúng cho đại lý khi bạn đã sẵn sàng và xem từng việc diễn ra như thế nào.';
+      'Hãy ghi lại mọi thứ ngay khi chúng đến với bạn, giao chúng cho agent khi bạn đã sẵn sàng và xem từng việc diễn ra như thế nào.';
 
   @override
   String get stashWelcomeNoteTitle => 'Hãy ghi chú nó xuống';
 
   @override
-  String get stashWelcomeAgentTitle => 'Đưa nó cho một đại lý';
+  String get stashWelcomeAgentTitle => 'Đưa nó cho một agent';
 
   @override
   String get stashWelcomeAgent =>
@@ -10533,14 +10527,14 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get stashWelcomeTrack =>
-      'Thẻ hiển thị trực tiếp các cuộc trò chuyện của họ và GitHub, GitLab và Gitee phát hành và kéo các yêu cầu mà chúng liên kết để luôn đồng bộ hóa.';
+      'Các thẻ hiển thị trực tiếp cuộc trò chuyện và đồng bộ các issue, pull request liên kết trên GitHub, GitLab và Gitee.';
 
   @override
   String get stashWelcomeStart => 'Bắt đầu';
 
   @override
   String get stashWelcomeNoteBody =>
-      'Văn bản, ảnh chụp màn hình và liên kết đều được đưa vào và mỗi cái đều có một số riêng, giống như một vấn đề.';
+      'Bạn có thể thêm văn bản, ảnh chụp màn hình và liên kết; mỗi mục được đánh số riêng như một issue.';
 
   @override
   String get stashWelcomeHotkeyTitle => 'Đặt lối tắt để ghi chú mọi thứ';
@@ -10566,18 +10560,18 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get settingsBrowserKeywords =>
-      'Đại lý tab trang web Brave Arc Edge tiện ích mở rộng Chrome';
+      'Agent tab trang web Brave Arc Edge tiện ích mở rộng Chrome';
 
   @override
   String get browserSettingsDescription =>
-      'Hãy để các đại lý sử dụng trình duyệt của riêng bạn, đăng nhập với tư cách là bạn: mở các trang, đọc chúng, nhấp và nhập các tab bạn chia sẻ với họ. Bạn có thể xem từng bước trong bảng điều khiển bên.';
+      'Hãy để các agent sử dụng trình duyệt của riêng bạn, đăng nhập với tư cách là bạn: mở các trang, đọc chúng, nhấp và nhập các tab bạn chia sẻ với họ. Bạn có thể xem từng bước trong bảng điều khiển bên.';
 
   @override
   String get browserSettingsUnsupported =>
       'Trình duyệt chỉ khả dụng trên macOS, Windows và Linux.';
 
   @override
-  String get browserSettingsEnabled => 'Cho phép đại lý sử dụng trình duyệt';
+  String get browserSettingsEnabled => 'Cho phép agent sử dụng trình duyệt';
 
   @override
   String get browserSettingsEnabledDescription =>
@@ -10588,7 +10582,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get browserSettingsStatusDescription =>
-      'Đại lý sử dụng trình duyệt được đánh dấu Đang sử dụng; chọn cái khác để chuyển đổi.';
+      'Agent sử dụng trình duyệt được đánh dấu Đang sử dụng; chọn cái khác để chuyển đổi.';
 
   @override
   String get browserSettingsNotInstalled =>
@@ -10706,7 +10700,7 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get browserHistoryClear => 'Thông thoáng';
+  String get browserHistoryClear => 'Xóa';
 
   @override
   String get browserHistoryClearConfirm => 'Xóa lịch sử gỡ lỗi?';
@@ -10729,11 +10723,11 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get browserWelcomeTitle =>
-      'Đại lý có thể sử dụng trình duyệt của bạn bây giờ';
+      'Agent có thể sử dụng trình duyệt của bạn bây giờ';
 
   @override
   String get browserWelcomeLead =>
-      'Với tiện ích mở rộng của BaoCode, các đại lý mở trang, đọc chúng, nhấp và nhập vào Chrome của riêng bạn, đăng nhập như chính bạn.';
+      'Với tiện ích mở rộng BaoCode, agent có thể mở trang, đọc, nhấp và nhập nội dung ngay trong Chrome của bạn, với phiên đăng nhập hiện tại.';
 
   @override
   String get browserWelcomeSharedTitle => 'Chỉ các tab bạn chia sẻ';
@@ -10796,7 +10790,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get modelWelcomeLead =>
-      'BaoCode điều hành các đại lý của bạn theo mô hình bạn chọn. Thêm một dịch vụ ngược dòng, một dịch vụ có khóa API và các mô hình của nó đã sẵn sàng để sử dụng.';
+      'BaoCode điều hành các agent của bạn theo mô hình bạn chọn. Thêm một dịch vụ ngược dòng, một dịch vụ có khóa API và các mô hình của nó đã sẵn sàng để sử dụng.';
 
   @override
   String get modelWelcomeAnyTitle => 'Bất kỳ thượng nguồn nào';
@@ -10897,7 +10891,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get sshSettingsDisconnectDetail =>
-      'Các cuộc hội thoại và thiết bị đầu cuối đang chạy ở đó kết thúc.';
+      'Các cuộc hội thoại và Terminal đang chạy ở đó kết thúc.';
 
   @override
   String sshSettingsCore(String core) {
@@ -10917,7 +10911,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get sshSettingsConfigHostsDescription =>
-      'Đã thay đổi trong tập tin đó; cốt lõi của họ là Tự động.';
+      'Đã thay đổi trong tệp đó; cốt lõi của họ là Tự động.';
 
   @override
   String get sshSettingsOpenConfig => 'Mở tệp';
@@ -10998,7 +10992,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get sshServerCoreAutoHint =>
-      'Mã Claude CLI của máy chủ nếu có, nếu không thì có lõi tích hợp.';
+      'Claude Code CLI của máy chủ nếu có, nếu không thì có lõi tích hợp.';
 
   @override
   String get sshServerCoreBuiltinHint =>
@@ -11034,7 +11028,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get sshServerKeyRequired => 'Chọn tệp khóa riêng';
 
   @override
-  String get sshServerKeyMissing => 'Không có tập tin như vậy';
+  String get sshServerKeyMissing => 'Không có tệp như vậy';
 
   @override
   String get remoteForgetHostKey => 'Xóa khóa cũ và kết nối';
@@ -11343,7 +11337,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String stashIssuePublishTo(String repo) {
-    return 'Xuất bản dưới dạng số phát hành của $repo…';
+    return 'Đăng thành issue của $repo…';
   }
 
   @override
@@ -11353,7 +11347,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get stashIssuePush => 'Đẩy các thay đổi đối với vấn đề…';
 
   @override
-  String get stashIssuePushShort => 'Xô';
+  String get stashIssuePushShort => 'Push';
 
   @override
   String get stashIssueTakeRemote =>
@@ -11383,7 +11377,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String stashIssuePublishTitle(String repo) {
-    return 'Xuất bản dưới dạng số phát hành của $repo';
+    return 'Đăng thành issue của $repo';
   }
 
   @override
@@ -11403,7 +11397,7 @@ class AppLocalizationsVi extends AppLocalizations {
       count,
       locale: localeName,
       other:
-          'Các ảnh $count được tải lên nhánh $branch của kho lưu trữ để số phát hành hiển thị chúng.',
+          'Các ảnh $count được tải lên nhánh $branch của kho lưu trữ để issue hiển thị chúng.',
       one:
           '1 ảnh được tải lên nhánh $branch của kho lưu trữ để vấn đề hiển thị nó.',
     );
@@ -11426,7 +11420,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String stashImplementIssue(String issue) {
-    return 'Đó là vấn đề $issue: yêu cầu kéo sẽ cho biết nó đã khắc phục được sự cố.';
+    return 'Đó là vấn đề $issue: pull request sẽ cho biết nó đã khắc phục được sự cố.';
   }
 
   @override
@@ -11536,7 +11530,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get stashNewsCountTooltip =>
-      'Chỉ hiển thị các thông tin cập nhật về bạn: các vấn đề của bạn và các yêu cầu kéo, những vấn đề được giao cho bạn hoặc đặt tên cho bạn';
+      'Chỉ hiển thị các thông tin cập nhật về bạn: các vấn đề của bạn và các pull request, những vấn đề được giao cho bạn hoặc đặt tên cho bạn';
 
   @override
   String get stashNewsCountTooltipOn =>
@@ -11606,7 +11600,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get stashIssueDiscussionEmpty => 'Chưa có bình luận nào';
 
   @override
-  String get stashNewsMerged => 'Đã hợp nhất yêu cầu kéo';
+  String get stashNewsMerged => 'Đã hợp nhất pull request';
 
   @override
   String get stashNewsChangesRequested => 'Đã yêu cầu thay đổi';
@@ -11736,13 +11730,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitLogHighlightNone => 'Không có gì';
 
   @override
-  String get gitLogHighlightMine => 'Cam kết của tôi';
+  String get gitLogHighlightMine => 'commit của tôi';
 
   @override
   String get gitLogClearFilters => 'Xóa bộ lọc';
 
   @override
-  String get gitLogCheckout => 'Thanh toán để...';
+  String get gitLogCheckout => 'Checkout tới...';
 
   @override
   String get gitLogSortTopo => 'Thứ tự tôpô';
@@ -11751,10 +11745,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitLogSortDate => 'Thứ tự ngày';
 
   @override
-  String get gitLogLocalBranches => 'Chi nhánh địa phương';
+  String get gitLogLocalBranches => 'nhánh địa phương';
 
   @override
-  String get gitLogRemoteBranches => 'Chi nhánh từ xa';
+  String get gitLogRemoteBranches => 'nhánh từ xa';
 
   @override
   String get gitLogTags => 'Thẻ';
@@ -11763,7 +11757,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitLogBackToLog => 'Quay lại nhật ký';
 
   @override
-  String get gitLogNoCommits => 'Không có cam kết phù hợp.';
+  String get gitLogNoCommits => 'Không có commit phù hợp.';
 
   @override
   String get gitLogLocalChanges => 'Thay đổi cục bộ';
@@ -11774,7 +11768,7 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get gitLogSelectCommit => 'Chọn một cam kết để xem chi tiết của nó.';
+  String get gitLogSelectCommit => 'Chọn một commit để xem chi tiết của nó.';
 
   @override
   String get gitLogParents => 'Phụ huynh: ';
@@ -11785,13 +11779,13 @@ class AppLocalizationsVi extends AppLocalizations {
       count,
       locale: localeName,
       other: 'Các tệp $count',
-      one: '1 tập tin',
+      one: '1 tệp',
     );
     return '$_temp0';
   }
 
   @override
-  String get gitLogInNoBranch => 'Không có chi nhánh nào có cam kết này.';
+  String get gitLogInNoBranch => 'Không có chi nhánh nào có commit này.';
 
   @override
   String gitLogInBranches(int count) {
@@ -11799,7 +11793,7 @@ class AppLocalizationsVi extends AppLocalizations {
       count,
       locale: localeName,
       other: 'Các nhánh $count',
-      one: '1 chi nhánh',
+      one: '1 nhánh',
     );
     return 'TRONG $_temp0';
   }
@@ -11811,7 +11805,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitLogTree => 'Cây';
 
   @override
-  String get gitLogFilterFiles => 'Lọc các tập tin (* và ? khớp với bất kỳ)';
+  String get gitLogFilterFiles => 'Lọc các tệp (* và ? khớp với bất kỳ)';
 
   @override
   String get gitLogCopyPath => 'Sao chép đường dẫn';
@@ -11836,7 +11830,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get checkpointsDescription =>
-      'Ảnh chụp nhanh của các đại lý dự án làm việc, được lưu giữ để hoàn tác các thay đổi của họ. Cuộc trò chuyện sẽ được sắp xếp gọn gàng sau 30 ngày kể từ lần cuối cùng nó thay đổi bất cứ điều gì.';
+      'Ảnh chụp nhanh của các agent dự án làm việc, được lưu giữ để hoàn tác các thay đổi của họ. Cuộc trò chuyện sẽ được sắp xếp gọn gàng sau 30 ngày kể từ lần cuối cùng nó thay đổi bất cứ điều gì.';
 
   @override
   String checkpointsSize(String size) {
@@ -11847,7 +11841,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get checkpointsMeasuring => 'Đo…';
 
   @override
-  String get checkpointsClear => 'Thông thoáng';
+  String get checkpointsClear => 'Xóa';
 
   @override
   String get checkpointsClearing => 'Đang xóa…';
@@ -11857,7 +11851,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get checkpointsClearDetail =>
-      'Các tác nhân thay đổi được thực hiện trong các cuộc hội thoại chưa mở sẽ không thể hoàn tác được nữa. Các tập tin vẫn giữ nguyên như cũ.';
+      'Các tác nhân thay đổi được thực hiện trong các cuộc hội thoại chưa mở sẽ không thể hoàn tác được nữa. Các tệp vẫn giữ nguyên như cũ.';
 
   @override
   String gitLogToday(String time) {
@@ -11882,7 +11876,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String gitLogCheckoutBranch(String branch) {
-    return 'Thanh toán \'$branch\'';
+    return 'Checkout “$branch”';
   }
 
   @override
@@ -11908,10 +11902,10 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get gitLogFollowAgent => 'Theo dõi đại lý';
+  String get gitLogFollowAgent => 'Theo dõi agent';
 
   @override
-  String get gitLogAgentHere => 'Đại lý làm việc ở đây';
+  String get gitLogAgentHere => 'Agent làm việc ở đây';
 
   @override
   String gitLogWorktreeAt(String name, String path) {
@@ -11942,13 +11936,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitCommitAmend => 'sửa đổi';
 
   @override
-  String get gitCommitMessage => 'Tin nhắn cam kết';
+  String get gitCommitMessage => 'Tin nhắn commit';
 
   @override
-  String get gitCommitButton => 'Làm';
+  String get gitCommitButton => 'Commit';
 
   @override
-  String get gitCommitAndPush => 'Cam kết và đẩy';
+  String get gitCommitAndPush => 'commit và đẩy';
 
   @override
   String get gitCommitRollback => 'Quay lại…';
@@ -11959,14 +11953,14 @@ class AppLocalizationsVi extends AppLocalizations {
       count,
       locale: localeName,
       other: 'Các tệp $count',
-      one: '1 tập tin',
+      one: '1 tệp',
     );
     return 'Lùi lại những thay đổi của $_temp0?';
   }
 
   @override
   String get gitCommitRollbackDetail =>
-      'Họ quay trở lại cách họ đã cam kết lần cuối; các tập tin chưa được cam kết sẽ bị xóa.';
+      'Họ quay trở lại cách họ đã cam kết lần cuối; các tệp chưa được cam kết sẽ bị xóa.';
 
   @override
   String get gitCommitRollbackButton => 'Khôi phục';
@@ -11990,10 +11984,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitCommitCollapseAll => 'Thu gọn tất cả';
 
   @override
-  String get gitCommitEmptyMessage => 'Nhập một tin nhắn cam kết.';
+  String get gitCommitEmptyMessage => 'Nhập một tin nhắn commit.';
 
   @override
-  String get gitCommitNothingSelected => 'Kiểm tra các tập tin để cam kết.';
+  String get gitCommitNothingSelected => 'Kiểm tra các tệp để commit.';
 
   @override
   String get gitCommitNoChanges => 'Không có thay đổi cục bộ';
@@ -12004,14 +11998,14 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get gitLogUndoCommit => 'Hoàn tác cam kết';
+  String get gitLogUndoCommit => 'Hoàn tác commit';
 
   @override
   String get branchBarNewWorktree => 'Cây làm việc mới…';
 
   @override
   String branchBarNewWorktreeFrom(String branch, String folder) {
-    return 'Một nhánh mới từ “$branch”, trong một cây làm việc riêng bên cạnh “$folder”: đại lý làm việc ở đó, quá trình thanh toán của bạn vẫn như cũ';
+    return 'Một nhánh mới từ “$branch”, trong một cây làm việc riêng bên cạnh “$folder”: agent làm việc ở đó, quá trình checkout của bạn vẫn như cũ';
   }
 
   @override
@@ -12102,7 +12096,7 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get diffGoToFile => 'Đi đến tập tin đã thay đổi';
+  String get diffGoToFile => 'Đi đến tệp đã thay đổi';
 
   @override
   String get lineChangePrevious => 'Thay đổi trước đó';
@@ -12164,20 +12158,20 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String gitLogResetHardConfirm(String branch, String commit) {
-    return 'Đặt lại “$branch” thành $commit và loại bỏ mọi thay đổi kể từ đó, đã cam kết hay chưa?';
+    return 'Đặt lại “$branch” thành $commit và loại bỏ mọi thay đổi kể từ đó, đã commit hay chưa?';
   }
 
   @override
   String get gitLogResetButton => 'Cài lại';
 
   @override
-  String get gitLogRevertCommit => 'Hoàn nguyên cam kết';
+  String get gitLogRevertCommit => 'Hoàn nguyên commit';
 
   @override
-  String get gitLogEditMessage => 'Chỉnh sửa tin nhắn cam kết…';
+  String get gitLogEditMessage => 'Chỉnh sửa tin nhắn commit…';
 
   @override
-  String get gitLogDropCommit => 'Bỏ cam kết';
+  String get gitLogDropCommit => 'Bỏ commit';
 
   @override
   String gitLogDropConfirm(String commit, String subject) {
@@ -12208,10 +12202,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitLogCreateTag => 'Tạo thẻ';
 
   @override
-  String get gitLogGoToParent => 'Đi đến Cam kết của Phụ huynh';
+  String get gitLogGoToParent => 'Đi đến commit của Phụ huynh';
 
   @override
-  String get gitLogGoToChild => 'Chuyển đến Cam kết trẻ em';
+  String get gitLogGoToChild => 'Chuyển đến commit trẻ em';
 
   @override
   String gitLogComparedWithLocal(String commit) {
@@ -12222,29 +12216,29 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitLogNoDifferences => 'Không có sự khác biệt so với cây làm việc';
 
   @override
-  String get gitLogCopyHashes => 'Sao chép băm cam kết';
+  String get gitLogCopyHashes => 'Sao chép băm commit';
 
   @override
   String gitLogCherryPickCount(int count) {
-    return 'Cam kết Cherry-Pick $count';
+    return 'commit Cherry-Pick $count';
   }
 
   @override
-  String get gitLogCompareCommits => 'So sánh các cam kết';
+  String get gitLogCompareCommits => 'So sánh các commit';
 
   @override
   String gitLogRevertCommits(int count) {
-    return 'Hoàn nguyên các cam kết $count';
+    return 'Hoàn nguyên các commit $count';
   }
 
   @override
   String gitLogSquashCommits(int count) {
-    return 'Squash $count cam kết thành một';
+    return 'Squash $count commit thành một';
   }
 
   @override
   String gitLogCommitsSelected(int count) {
-    return '$count cam kết đã chọn';
+    return '$count commit đã chọn';
   }
 
   @override
@@ -12280,10 +12274,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitShowHistoryForSelection => 'Hiển thị lịch sử lựa chọn';
 
   @override
-  String get gitShowBranches => 'Hiển thị chi nhánh';
+  String get gitShowBranches => 'Hiển thị nhánh';
 
   @override
-  String get gitHideBranches => 'Ẩn chi nhánh';
+  String get gitHideBranches => 'Ẩn nhánh';
 
   @override
   String get gitBranchesFilter => 'Lọc nhánh';
@@ -12292,7 +12286,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitBranchesHead => 'HEAD (Chi nhánh hiện tại)';
 
   @override
-  String get gitBranchCheckout => 'Thanh toán';
+  String get gitBranchCheckout => 'Checkout';
 
   @override
   String gitBranchNewFrom(String name) {
@@ -12301,7 +12295,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String gitBranchCheckoutRebase(String current) {
-    return 'Thanh toán và Rebase vào “$current”';
+    return 'checkout và Rebase vào “$current”';
   }
 
   @override
@@ -12337,7 +12331,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitBranchUpdate => 'Cập nhật';
 
   @override
-  String get gitBranchPush => 'Xô';
+  String get gitBranchPush => 'Push';
 
   @override
   String gitBranchPushTo(String upstream) {
@@ -12386,7 +12380,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String gitBranchNotMergedConfirm(String name) {
-    return '“$name” đã cam kết không sáp nhập vào chi nhánh nào khác. Vẫn xóa nó đi?';
+    return '“$name” đã commit không sáp nhập vào chi nhánh nào khác. Vẫn xóa nó đi?';
   }
 
   @override
@@ -12404,15 +12398,15 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String gitBranchCompared(String name, String current, int ahead, int behind) {
-    return '“$name” có $ahead cam kết “$current” không có; “$current” có $behind nhưng không có.';
+    return '“$name” có $ahead commit “$current” không có; “$current” có $behind nhưng không có.';
   }
 
   @override
-  String get gitBranchCompareFiles => 'Hiển thị các tập tin đã thay đổi';
+  String get gitBranchCompareFiles => 'Hiển thị các tệp đã thay đổi';
 
   @override
   String scmGraphRangeIn(String to, String from) {
-    return 'Cam kết trong “$to” Không có trong “$from”';
+    return 'commit trong “$to” Không có trong “$from”';
   }
 
   @override
@@ -12434,17 +12428,17 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitNewBranchEllipsis => 'Chi nhánh mới…';
 
   @override
-  String get gitCheckoutRevision => 'Thẻ thanh toán hoặc bản sửa đổi…';
+  String get gitCheckoutRevision => 'Thẻ checkout hoặc bản sửa đổi…';
 
   @override
   String get gitBranchesTitle => 'Nhánh Git';
 
   @override
-  String get gitRevisionPlaceholder => 'Thẻ, nhánh hoặc hàm băm cam kết';
+  String get gitRevisionPlaceholder => 'Thẻ, nhánh hoặc hàm băm commit';
 
   @override
   String get gitUpdateProjectDetail =>
-      'Đưa nhánh hiện tại của mỗi kho lưu trữ lên thượng nguồn của nó: hợp nhất các cam kết mới của nó vào hoặc khởi động lại nhánh của chính nhánh đó vào chúng. Trong khi đó, những thay đổi cục bộ được lưu trữ.';
+      'Đưa nhánh hiện tại của mỗi kho lưu trữ lên thượng nguồn của nó: hợp nhất các commit mới của nó vào hoặc khởi động lại nhánh của chính nhánh đó vào chúng. Trong khi đó, những thay đổi cục bộ được lưu trữ.';
 
   @override
   String get gitUpdateMerge => 'Hợp nhất';
@@ -12456,7 +12450,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitDontAskAgain => 'Đừng hỏi lại';
 
   @override
-  String get gitPushTitle => 'Đẩy cam kết';
+  String get gitPushTitle => 'Đẩy commit';
 
   @override
   String get gitPushTags => 'Thẻ đẩy';
@@ -12471,7 +12465,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get gitPushForceDetail =>
-      'Những gì ở đó sẽ được thay thế bằng những gì bạn Đẩy (với hợp đồng thuê: chỉ được tìm nạp lần cuối, vì vậy các cam kết mới hơn của không ai bị mất).';
+      'Những gì ở đó sẽ được thay thế bằng những gì bạn Đẩy (với hợp đồng thuê: chỉ được tìm nạp lần cuối, vì vậy các commit mới hơn của không ai bị mất).';
 
   @override
   String get gitPushNothing => 'Không có gì để đẩy';
@@ -12483,8 +12477,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitPushNew => 'mới';
 
   @override
-  String get gitPushSelectCommit =>
-      'Chọn một cam kết để xem các tập tin của nó';
+  String get gitPushSelectCommit => 'Chọn một commit để xem các tệp của nó';
 
   @override
   String get gitPushEllipsisCommand => 'Xô…';
@@ -12637,16 +12630,16 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitMergeDiscardButton => 'Loại bỏ';
 
   @override
-  String get gitDiffExcludeChange => 'Để thay đổi này ra khỏi cam kết';
+  String get gitDiffExcludeChange => 'Để thay đổi này ra khỏi commit';
 
   @override
-  String get gitDiffIncludeChange => 'Bao gồm Thay đổi này trong Cam kết';
+  String get gitDiffIncludeChange => 'Bao gồm Thay đổi này trong commit';
 
   @override
-  String get gitDiffExcludeLine => 'Bỏ dòng này ra khỏi cam kết';
+  String get gitDiffExcludeLine => 'Bỏ dòng này ra khỏi commit';
 
   @override
-  String get gitDiffIncludeLine => 'Bao gồm dòng này trong cam kết';
+  String get gitDiffIncludeLine => 'Bao gồm dòng này trong commit';
 
   @override
   String get gitChangelistActive => 'tích cực';
@@ -12664,7 +12657,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitChangelistName => 'Tên danh sách thay đổi';
 
   @override
-  String get gitChangelistCommitOnly => 'Chỉ cam kết danh sách thay đổi này';
+  String get gitChangelistCommitOnly => 'Chỉ commit danh sách thay đổi này';
 
   @override
   String get gitChangelistSetActive => 'Đặt danh sách thay đổi đang hoạt động';
@@ -12686,8 +12679,8 @@ class AppLocalizationsVi extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Lưu trữ các tập tin $count',
-      one: 'Chứa 1 tập tin',
+      other: 'Lưu trữ các tệp $count',
+      one: 'Chứa 1 tệp',
     );
     return '$_temp0';
   }
@@ -12699,7 +12692,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitStashMessage => 'Tin nhắn (tùy chọn)';
 
   @override
-  String get gitStashUntracked => 'Bao gồm các tập tin không bị theo dõi';
+  String get gitStashUntracked => 'Bao gồm các tệp không bị theo dõi';
 
   @override
   String get gitStashBase => 'Căn cứ';
@@ -12734,7 +12727,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitStashClearConfirm => 'Bỏ mọi thứ?';
 
   @override
-  String get gitStashClearButton => 'Thông thoáng';
+  String get gitStashClearButton => 'Xóa';
 
   @override
   String get gitStashNone => 'Không có kho lưu trữ';
@@ -12743,7 +12736,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitStashTab => 'cất giữ';
 
   @override
-  String get gitCommitTab => 'Làm';
+  String get gitCommitTab => 'Commit';
 
   @override
   String get gitCommitPanelFold => 'Nếp gấp';
@@ -12752,13 +12745,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitCommitPanelUnfold => 'Mở ra';
 
   @override
-  String get gitStashSelected => 'Chứa các tập tin đã chọn…';
+  String get gitStashSelected => 'Chứa các tệp đã chọn…';
 
   @override
   String get gitCommitIgnored => 'Tệp bị bỏ qua';
 
   @override
-  String get gitCommitShowIgnored => 'Hiển thị các tập tin bị bỏ qua';
+  String get gitCommitShowIgnored => 'Hiển thị các tệp bị bỏ qua';
 
   @override
   String gitCommitLongSubject(int limit) {
@@ -12770,13 +12763,13 @@ class AppLocalizationsVi extends AppLocalizations {
       'Tách chủ thể khỏi nội dung bằng một dòng trống';
 
   @override
-  String get gitCommitMessageHistory => 'Lịch sử tin nhắn cam kết (Ctrl+M)';
+  String get gitCommitMessageHistory => 'Lịch sử tin nhắn commit (Ctrl+M)';
 
   @override
   String get gitCommitNoMessageHistory => 'Chưa có tin nhắn nào';
 
   @override
-  String get gitCommitOptions => 'Tùy chọn cam kết';
+  String get gitCommitOptions => 'Tùy chọn commit';
 
   @override
   String get gitCommitAuthor => 'Tác giả…';
@@ -12793,7 +12786,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitCommitAuthorPlaceholder => 'Tên <email>';
 
   @override
-  String get gitCommitSignOff => 'Cam kết đăng xuất';
+  String get gitCommitSignOff => 'commit đăng xuất';
 
   @override
   String get gitCommitRunHooks => 'Chạy Git Hook';
@@ -12812,8 +12805,8 @@ class AppLocalizationsVi extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Cam kết $count',
-      one: '1 cam kết',
+      other: 'commit $count',
+      one: '1 commit',
     );
     return 'Khởi động lại $_temp0 từ $base';
   }
@@ -12843,18 +12836,18 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gitRebaseMoveDown => 'Di chuyển xuống (Alt+Dưới)';
 
   @override
-  String get gitRebaseMessage => 'Thông báo cam kết';
+  String get gitRebaseMessage => 'Thông báo commit';
 
   @override
   String get gitRebaseStart => 'Bắt đầu khởi động lại';
 
   @override
   String get gitRebaseNothingBelow =>
-      'Cam kết cũ nhất được giữ không thể bị đè bẹp hoặc sửa chữa: không có gì bên dưới nó.';
+      'commit cũ nhất được giữ không thể bị đè bẹp hoặc sửa chữa: không có gì bên dưới nó.';
 
   @override
   String get gitRebaseStopped =>
-      'Quá trình rebase đã dừng: sửa đổi cam kết hoặc giải quyết xung đột, sau đó Tiếp tục.';
+      'Quá trình rebase đã dừng: sửa đổi commit hoặc giải quyết xung đột, sau đó Tiếp tục.';
 
   @override
   String get gitRebaseCleanUpWithAi => 'Dọn dẹp bằng AI';
@@ -12868,7 +12861,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get gitRebaseAiNoPlan =>
-      'Câu trả lời của mô hình không phải là danh sách rebase của những cam kết này.';
+      'Câu trả lời của mô hình không phải là danh sách rebase của những commit này.';
 
   @override
   String gitRebaseAiFailed(String error) {
@@ -12971,10 +12964,10 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get gitReviewCommitAnyway => 'Dù sao cũng cam kết';
+  String get gitReviewCommitAnyway => 'Dù sao cũng commit';
 
   @override
-  String get gitReviewCommitAndPushAnyway => 'Cam kết và đẩy dù sao';
+  String get gitReviewCommitAndPushAnyway => 'commit và đẩy dù sao';
 
   @override
   String gitReviewFailed(String error) {
@@ -12982,11 +12975,11 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get gitAskAiCommit => 'Hỏi AI về cam kết này';
+  String get gitAskAiCommit => 'Hỏi AI về commit này';
 
   @override
   String gitAskAiCommitPrompt(String id, String subject) {
-    return 'Giải thích cam kết $id (“$subject”): nó thay đổi những gì và tại sao cũng như bất kỳ điều gì trong đó có vẻ rủi ro. Đọc nó với `git show $id`.';
+    return 'Giải thích commit $id (“$subject”): nó thay đổi những gì và tại sao cũng như bất kỳ điều gì trong đó có vẻ rủi ro. Đọc nó với `git show $id`.';
   }
 
   @override
@@ -12994,15 +12987,15 @@ class AppLocalizationsVi extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Hỏi AI về những cam kết $count này',
-      one: 'Hỏi AI về cam kết này',
+      other: 'Hỏi AI về những commit $count này',
+      one: 'Hỏi AI về commit này',
     );
     return '$_temp0';
   }
 
   @override
   String gitAskAiCommitsPrompt(String ids) {
-    return 'Giải thích các cam kết $ids: những gì chúng thay đổi cùng nhau và bất kỳ điều gì trong đó có vẻ rủi ro. Đọc chúng với `git show`.';
+    return 'Giải thích các commit $ids: những gì chúng thay đổi cùng nhau và bất kỳ điều gì trong đó có vẻ rủi ro. Đọc chúng với `git show`.';
   }
 
   @override
@@ -13026,7 +13019,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String gitAskAiConflictsPrompt(String paths) {
-    return 'Giải quyết xung đột hợp nhất trong $paths: giữ nguyên ý nghĩa của cả hai bên, sau đó cho tôi biết bạn đã chọn gì. Đừng giai đoạn hoặc cam kết.';
+    return 'Giải quyết xung đột hợp nhất trong $paths: giữ nguyên ý nghĩa của cả hai bên, sau đó cho tôi biết bạn đã chọn gì. Đừng giai đoạn hoặc commit.';
   }
 
   @override
@@ -13055,7 +13048,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get gitCompareWithRevisionPlaceholder =>
-      'Chọn một phiên bản của tập tin để so sánh với';
+      'Chọn một phiên bản của tệp để so sánh với';
 
   @override
   String gitCompareLabel(String name, String other) {
@@ -13077,7 +13070,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String compareFoldersPick(String original, String modified) {
-    return 'Các tập tin “$original” và “$modified” khác nhau ở';
+    return 'Các tệp “$original” và “$modified” khác nhau ở';
   }
 
   @override
@@ -13131,7 +13124,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get ustatAll => 'Tất cả';
 
   @override
-  String get ustatAgent => 'Đại lý';
+  String get ustatAgent => 'Agent';
 
   @override
   String get ustatKind => 'Loại';
@@ -13179,7 +13172,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get ustatRangeAll => 'Mọi lúc';
 
   @override
-  String get ustatClassMain => 'Đại lý chính';
+  String get ustatClassMain => 'Agent chính';
 
   @override
   String get ustatClassSubagent => 'chất phụ';
@@ -13197,7 +13190,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get ustatClassSideReply => 'Trả lời bên lề';
 
   @override
-  String get ustatMainAgent => 'Đại lý chính';
+  String get ustatMainAgent => 'Agent chính';
 
   @override
   String get ustatPartSystem => 'Lời nhắc hệ thống';
@@ -13221,7 +13214,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get ustatPartToolResult => 'Kết quả công cụ';
 
   @override
-  String get ustatPartMedia => 'Hình ảnh và tập tin';
+  String get ustatPartMedia => 'Hình ảnh và tệp';
 
   @override
   String get ustatTokenInput => 'đầu vào';
@@ -13448,7 +13441,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get ustatFieldSession => 'Phiên họp';
 
   @override
-  String get ustatFieldAgent => 'Đại lý';
+  String get ustatFieldAgent => 'Agent';
 
   @override
   String get ustatFieldTask => 'Nhiệm vụ';
@@ -13532,7 +13525,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get ustatRecordDescription =>
-      'Các cuộc gọi riêng của Claude Code được đọc từ những gì nó in ra; các phiên trên luồng ngược tùy chỉnh sẽ đi qua proxy cục bộ của BaoCode, nơi lưu giữ từng cuộc gọi. Áp dụng cho đại lý bắt đầu từ bây giờ.';
+      'Các cuộc gọi riêng của Claude Code được đọc từ những gì nó in ra; các phiên trên luồng ngược tùy chỉnh sẽ đi qua proxy cục bộ của BaoCode, nơi lưu giữ từng cuộc gọi. Áp dụng cho agent bắt đầu từ bây giờ.';
 
   @override
   String get ustatRecordOffDescription =>
@@ -13580,7 +13573,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get ustatClearEllipsis => 'Thông thoáng…';
 
   @override
-  String get ustatClear => 'Thông thoáng';
+  String get ustatClear => 'Xóa';
 
   @override
   String ustatClearOlderThan(int days) {
@@ -13869,7 +13862,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get ustatSwitchedHint =>
-      'Đã lưu vào Cài đặt → Tùy chỉnh. Các yêu cầu tiếp theo của đại lý sẽ không được tắt.';
+      'Đã lưu vào Cài đặt → Tùy chỉnh. Các yêu cầu tiếp theo của agent sẽ không được tắt.';
 
   @override
   String get ustatShowAuxiliary => 'Hiển thị các yêu cầu phụ trợ';
@@ -13914,7 +13907,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get ustatTraceAnswerOnly =>
-      'Như Mã Claude đã in nó; yêu cầu tới Anthropic không được nhìn thấy';
+      'Như Claude Code đã in nó; yêu cầu tới Anthropic không được nhìn thấy';
 
   @override
   String ustatTraceTry(int n) {
@@ -13981,7 +13974,7 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get usageAgentDefinition => 'đại lý';
+  String get usageAgentDefinition => 'agent';
 
   @override
   String get usageAttachments => 'Lời nhắc và tệp đính kèm';
@@ -14270,7 +14263,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get rewindFilesTitle =>
-      'Hoàn tác các thay đổi tập tin được thực hiện sau thông báo này?';
+      'Hoàn tác các thay đổi tệp được thực hiện sau thông báo này?';
 
   @override
   String rewindFilesChanged(int count) {
@@ -14305,7 +14298,7 @@ class AppLocalizationsVi extends AppLocalizations {
       count,
       locale: localeName,
       other: 'Các tệp $count không thể',
-      one: '1 tập tin không thể',
+      one: '1 tệp không thể',
     );
     String _temp1 = intl.Intl.pluralLogic(
       count,
@@ -14415,7 +14408,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get baoBashDescription =>
-      'Một bash hoàn chỉnh dành cho các tác nhân trên Windows: rg, grep, sed, awk, find, jq, tar và khoảng 80 lệnh phổ biến khác được tích hợp sẵn, không cần Git cho Windows và các đường dẫn C:\\ và /c/ giống nhau. Cả lõi tích hợp và Mã Claude đều chạy các lệnh của đặc vụ của họ bằng nó.';
+      'Một bash hoàn chỉnh dành cho các tác nhân trên Windows: rg, grep, sed, awk, find, jq, tar và khoảng 80 lệnh phổ biến khác được tích hợp sẵn, không cần Git cho Windows và các đường dẫn C:\\ và /c/ giống nhau. Cả lõi tích hợp và Claude Code đều chạy các lệnh của đặc vụ của họ bằng nó.';
 
   @override
   String get baoBashNotInstalled => 'Chưa được cài đặt.';
@@ -14459,7 +14452,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get baoBashNoticeBody =>
-      'Các đại lý chạy lệnh đáng tin cậy hơn với nó. Nó mang đến bash với rg, grep, sed, awk, find, jq, tar và khoảng 80 lệnh phổ biến khác, không cần Git cho Windows; nó có các đường dẫn C:\\ và /c/ giống nhau, do đó các lệnh không còn bị lỗi do sự khác biệt giữa cmd và PowerShell.';
+      'Các agent chạy lệnh đáng tin cậy hơn với nó. Nó mang đến bash với rg, grep, sed, awk, find, jq, tar và khoảng 80 lệnh phổ biến khác, không cần Git cho Windows; nó có các đường dẫn C:\\ và /c/ giống nhau, do đó các lệnh không còn bị lỗi do sự khác biệt giữa cmd và PowerShell.';
 
   @override
   String get baoBashNoticeLater => 'Không phải bây giờ';
