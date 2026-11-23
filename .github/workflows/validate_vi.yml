@@ -2,9 +2,9 @@ name: Validate Vietnamese localization (temporary)
 
 on:
   push:
-    branches: [feat/vietnamese-localization]
+    branches: [work/vietnamese-preparation]
     paths:
-      - test/l10n_test.dart
+      - .github/workflows/validate_vi.yml
   workflow_dispatch:
 
 permissions:
