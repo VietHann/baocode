@@ -1,0 +1,78 @@
+name: Translate Vietnamese UI in shards (temporary)
+
+on:
+  push:
+    branches: [work/vietnamese-preparation]
+    paths: [.github/workflows/translate_vi_parallel.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7]
+    env:
+      SHARD_COUNT: '8'
+      SHARD_INDEX: ${{ matrix.shard }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install 'requests>=2.32,<3'
+      - run: python tool/translate_vi_sharded.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vi-part-${{ matrix.shard }}
+          path: lib/l10n/app_vi.arb
+          retention-days: 2
+
+  merge:
+    needs: translate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: vi-part-*
+          path: vi-parts
+      - name: Assemble complete Vietnamese ARB
+        run: |
+          python - <<'PY'
+          import glob
+          import json
+          from pathlib import Path
+          source=json.loads(Path("lib/l10n/app_en.arb").read_text())
+          result={"@@locale":"vi"}
+          for name in sorted(glob.glob("vi-parts/vi-part-*/app_vi.arb")):
+              part=json.loads(Path(name).read_text())
+              for key,value in part.items():
+                  if key=="@@locale":
+                      continue
+                  if key in result:
+                      raise SystemExit("Duplicate key: " + key)
+                  result[key]=value
+          expected=[k for k in source if not k.startswith("@")]
+          if set(expected)!=set(result)-{"@@locale"}:
+              missing=set(expected)-(set(result)-{"@@locale"})
+              raise SystemExit("Missing keys: " + repr(sorted(missing)[:25]))
+          overrides=json.loads(Path("tool/vi_review_overrides.json").read_text())
+          result.update(overrides)
+          ordered={"@@locale":"vi", **{key:result[key] for key in expected}}
+          Path("lib/l10n/app_vi.arb").write_text(
+              json.dumps(ordered,ensure_ascii=False,indent=2)+"\n",encoding="utf-8"
+          )
+          print("Combined",len(expected),"keys; curated",len(overrides),"keys")
+          PY
+      - name: Commit Vietnamese translation to staging branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lib/l10n/app_vi.arb
+          git diff --cached --quiet || (git commit -m "chore(l10n): assemble Vietnamese translation" && git push)
